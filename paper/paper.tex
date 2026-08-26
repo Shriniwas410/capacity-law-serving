@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 % Capacity-law serving (Paper 2). Compile: tectonic paper.tex
-% Not Cacheable by Design (arXiv 2608.18261).
+% Companion training paper: Cacheable by Design (arXiv 2608.18261), cited as suram2026cacheable.
 % Every decode number traces to measurements/*verdict.json.
 % Do not cite 0.44 tok/s as this CPU stream stack.
 \usepackage[margin=1in]{geometry}
@@ -98,8 +98,11 @@ union law $U(k)$ that falsifies ``just speculate with $k{=}4$.''
 
 A 0.44\,\tps{} figure from Windows \texttt{llama-server -ngl 99 -ncmoe 94}
 (GPU non-MoE trunk, 2026-08-05) is a \emph{different stack} and is not used
-below. A companion training-time locality study is a separate artifact and is
-not mixed into these tok/s tables.
+below. The companion training-time locality paper
+\citep{suram2026cacheable} pre-registers 137M MoE routers with a locality
+loss: cache misses fall up to 60\%, but every configuration fails a
+$\le 1\%$ perplexity gate. We do not mix that result---or that paper's
+0.44\,\tps{} warm 235B decode---into these CPU stream tables.
 
 \section{Background}
 \label{sec:bg}
@@ -445,7 +448,9 @@ A100) \citep{pan2026evict}. Those are GPU/HBM or expert-\emph{drop} levers. A
 the remaining exact-routing lever is prefix FFN plus overflow waves.
 The closest measurement ancestors remain Mixtral offload (2--3\,\tps{} on
 8$\times$7B, not 235B) and MoE-Infinity (expert-level traces on a GPU that holds
-the working set). We contribute the 235B top-8 union law on a RAM slab that does
+the working set). Training-time router locality on 137M models is a companion
+negative result \citep{suram2026cacheable} and is not this paper's tok/s
+ladder. We contribute the 235B top-8 union law on a RAM slab that does
 \emph{not} hold the table, and the speculation negative-then-parity pair under
 that law.
 
@@ -465,7 +470,8 @@ publishable claims are
 the traces, the union law, the mmap/\texttt{O\_DIRECT} ladder, and the
 speculation negative-then-parity pair---not umax tok/s. We post this as a
 measurement preprint.
-It is not a TMLR resubmission of the companion training-time locality paper.
+It is not a TMLR resubmission of the companion training-time locality paper
+\citep{suram2026cacheable}.
 
 \paragraph{Reproducibility.}
 Scripts, verdicts, and traces live under \texttt{measurements/}

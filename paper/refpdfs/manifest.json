@@ -1,6 +1,6 @@
 {
  "generated_by": "ingest_refpdfs.py",
- "count": 69,
+ "count": 70,
  "entries": [
   {
    "key": "du2022glam",
@@ -835,6 +835,18 @@
    "sha256": "814b31e61481c14c840f73ae8eda9d43d1e16a2bec6a5925b0b64ef7214f314d",
    "bytes": 861871,
    "pages": 13,
+   "status": "OK"
+  },
+  {
+   "key": "suram2026cacheable",
+   "eprint": "2608.18261",
+   "title": "Cacheable by Design? Training Mixture-of-Experts Routers for Locality Against the Edge Memory-Bandwidth Wall: A Pre-Registered Negative Result, with a Systems Measurement Study",
+   "author": "Suram, Shriniwas Ramesh",
+   "pdf": "refpdfs/2608.18261.pdf",
+   "txt": "refpdfs/txt/2608.18261.txt",
+   "sha256": "613af25a5bfbecaa0b3121924c703efaaa22c9a6842cc35859ae18bad48775bc",
+   "bytes": 357871,
+   "pages": 16,
    "status": "OK"
   }
  ]

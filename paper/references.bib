@@ -1151,3 +1151,25 @@
   primaryClass  = {cs.CL}
 }
 
+% ===================================================================
+% AUTHOR PRIOR WORK
+% ===================================================================
+
+% verified_finding: Abstract -- pre-registers training 137M-parameter MoE language models with
+%   auxiliary locality and domain router losses. "locality training cuts cache misses up to 60%"
+%   and "domain training reaches a 99% static-pin hit rate" but "every configuration fails the
+%   pre-registered <=1% perplexity gate". A 340M rung: the locality tax "does not (it rises
+%   slightly)". Training result, not a CPU-stream 235B tok/s table; that paper's 0.44 tok/s
+%   warm decode is a different stack.
+% source: local pdf refpdfs/2608.18261.pdf sha256:613af25a5bfb; FULL-PDF ingest 2026-08-26
+@article{suram2026cacheable,
+  title   = {Cacheable by Design? Training Mixture-of-Experts Routers for Locality Against the Edge Memory-Bandwidth Wall: A Pre-Registered Negative Result, with a Systems Measurement Study},
+  author  = {Suram, Shriniwas Ramesh},
+  journal = {arXiv preprint arXiv:2608.18261},
+  year    = {2026},
+  eprint  = {2608.18261},
+  url     = {https://arxiv.org/abs/2608.18261},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI}
+}
+
