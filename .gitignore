@@ -1,0 +1,18 @@
+# large / regenerable artifacts — never commit
+*.pt
+*.gguf
+*.bin
+*.safetensors
+__pycache__/
+.pytest_cache/
+paper/build/
+*.aux
+*.log
+*.out
+*.xdv
+.DS_Store
+
+# copyrighted reference PDFs + extracted text — never publish
+paper/refpdfs/*.pdf
+paper/refpdfs/txt/
+paper/refpdfs/_incoming/

@@ -1,0 +1,14 @@
+{
+  "target": "Qwen3-30B-A3B-Q4_K_M",
+  "draft": "Qwen3-0.6B-Q8_0",
+  "spec_type": "draft-simple",
+  "n_gen_tokens": 37,
+  "n_prompts": 1,
+  "note": "Smoke, not the 200-prompt G3 gate. Speedup 1.0x because 30B at 4GiB cache is not SSD-bound.",
+  "arms": {
+    "baseline": {"tok_s": 1.96},
+    "spec_k2": {"tok_s": 1.99, "alpha": 0.85714, "accepted": 24, "generated": 28, "mean_len": 2.71},
+    "spec_k4": {"tok_s": 2.01, "alpha": 0.83333, "accepted": 30, "generated": 36, "mean_len": 4.33}
+  },
+  "G3_alpha_ge_0.55_smoke": true
+}

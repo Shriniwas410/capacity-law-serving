@@ -1,0 +1,318 @@
+{
+  "traces_dir": "/mnt/c/Users/shrin/Desktop/AI/moe-routing-lab/traces",
+  "domains": {
+    "code": {
+      "path": "/mnt/c/Users/shrin/Desktop/AI/moe-routing-lab/traces/code.npz",
+      "meta": {
+        "model": "Qwen3-30B-A3B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 48,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          48,
+          8000,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 6500,
+        "count_max": 52298,
+        "count_std": 9732.224923064869,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.206973788390215,
+          "std_over_layers": 0.6733876785134674,
+          "min_layer": 11.09501187648456,
+          "max_layer": 15.054756844605576,
+          "demand_vs_naive": 0.7629358617743884
+        },
+        "3": {
+          "mean": 15.532317975327166,
+          "std_over_layers": 1.3649369910271414,
+          "min_layer": 13.318829707426858,
+          "max_layer": 21.342085521380344,
+          "demand_vs_naive": 0.6471799156386319
+        },
+        "4": {
+          "mean": 18.30969426034763,
+          "std_over_layers": 1.9970488685051944,
+          "min_layer": 15.068025509566088,
+          "max_layer": 26.866199824934352,
+          "demand_vs_naive": 0.5721779456358634
+        },
+        "6": {
+          "mean": 22.760152178444866,
+          "std_over_layers": 3.066825393289043,
+          "min_layer": 17.72895559724828,
+          "max_layer": 35.93608505315822,
+          "demand_vs_naive": 0.4741698370509347
+        },
+        "8": {
+          "mean": 26.314637286792607,
+          "std_over_layers": 3.940360359309021,
+          "min_layer": 19.772425872638557,
+          "max_layer": 43.14262479669711,
+          "demand_vs_naive": 0.4111662076061345
+        }
+      },
+      "lag1": {
+        "reuse": 0.47412827645122296,
+        "chance": 0.27641037402343754,
+        "ratio": 1.7153056506157776,
+        "jaccard": 0.34025579411721424
+      },
+      "G2b_U4_le_16": false
+    },
+    "general": {
+      "path": "/mnt/c/Users/shrin/Desktop/AI/moe-routing-lab/traces/general.npz",
+      "meta": {
+        "model": "Qwen3-30B-A3B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 48,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          48,
+          8000,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 11555,
+        "count_max": 52069,
+        "count_std": 7995.837633966187,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.431001791890653,
+          "std_over_layers": 0.7073526239480346,
+          "min_layer": 10.727840980122515,
+          "max_layer": 14.879234904363045,
+          "demand_vs_naive": 0.7769376119931658
+        },
+        "3": {
+          "mean": 16.100788217887807,
+          "std_over_layers": 1.4405047449459074,
+          "min_layer": 12.773318329582395,
+          "max_layer": 21.096149037259316,
+          "demand_vs_naive": 0.6708661757453253
+        },
+        "4": {
+          "mean": 19.23085479971656,
+          "std_over_layers": 2.1214611112797614,
+          "min_layer": 14.474928098036763,
+          "max_layer": 26.64149055895961,
+          "demand_vs_naive": 0.6009642124911425
+        },
+        "6": {
+          "mean": 24.452655305399208,
+          "std_over_layers": 3.3041854500992693,
+          "min_layer": 17.321826141338338,
+          "max_layer": 36.175859912445276,
+          "demand_vs_naive": 0.5094303188624835
+        },
+        "8": {
+          "mean": 28.738581154343382,
+          "std_over_layers": 4.279930236152811,
+          "min_layer": 19.725885149505817,
+          "max_layer": 44.12973852120606,
+          "demand_vs_naive": 0.44904033053661535
+        }
+      },
+      "lag1": {
+        "reuse": 0.4461247760136684,
+        "chance": 0.18961128629557292,
+        "ratio": 2.3528387193061544,
+        "jaccard": 0.3172435204986149
+      },
+      "G2b_U4_le_16": false
+    },
+    "math": {
+      "path": "/mnt/c/Users/shrin/Desktop/AI/moe-routing-lab/traces/math.npz",
+      "meta": {
+        "model": "Qwen3-30B-A3B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 48,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          48,
+          8000,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 9740,
+        "count_max": 51343,
+        "count_std": 7993.695787540954,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.833096324540568,
+          "std_over_layers": 0.5517815705487412,
+          "min_layer": 11.429178647330916,
+          "max_layer": 14.864108013501689,
+          "demand_vs_naive": 0.8020685202837855
+        },
+        "3": {
+          "mean": 16.806985600566808,
+          "std_over_layers": 1.0969082437215139,
+          "min_layer": 14.068642160540135,
+          "max_layer": 20.88822205551388,
+          "demand_vs_naive": 0.7002910666902836
+        },
+        "4": {
+          "mean": 20.19844420824476,
+          "std_over_layers": 1.602500484931327,
+          "min_layer": 16.262973615105665,
+          "max_layer": 26.163311241715643,
+          "demand_vs_naive": 0.6312013815076487
+        },
+        "6": {
+          "mean": 25.881235668125914,
+          "std_over_layers": 2.493064244407222,
+          "min_layer": 19.87754846779237,
+          "max_layer": 35.09118198874297,
+          "demand_vs_naive": 0.5391924097526232
+        },
+        "8": {
+          "mean": 30.584081383710743,
+          "std_over_layers": 3.2458903477041505,
+          "min_layer": 22.87413987238834,
+          "max_layer": 42.45039409483298,
+          "demand_vs_naive": 0.47787627162048035
+        }
+      },
+      "lag1": {
+        "reuse": 0.39586295943242905,
+        "chance": 0.19595990413411457,
+        "ratio": 2.020122234605204,
+        "jaccard": 0.2726944673422358
+      },
+      "G2b_U4_le_16": false
+    },
+    "medical": {
+      "path": "/mnt/c/Users/shrin/Desktop/AI/moe-routing-lab/traces/medical.npz",
+      "meta": {
+        "model": "Qwen3-30B-A3B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 48,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          48,
+          8000,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 7601,
+        "count_max": 50652,
+        "count_std": 8200.704002744216,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.323405008959453,
+          "std_over_layers": 0.7186653717051605,
+          "min_layer": 11.260157519689962,
+          "max_layer": 14.97812226528316,
+          "demand_vs_naive": 0.7702128130599658
+        },
+        "3": {
+          "mean": 15.800371967991998,
+          "std_over_layers": 1.4201532032464292,
+          "min_layer": 13.68417104276069,
+          "max_layer": 21.06876719179795,
+          "demand_vs_naive": 0.6583488319996665
+        },
+        "4": {
+          "mean": 18.74125192780626,
+          "std_over_layers": 2.0430730714041982,
+          "min_layer": 15.633362510941604,
+          "max_layer": 26.40202575965987,
+          "demand_vs_naive": 0.5856641227439456
+        },
+        "6": {
+          "mean": 23.61723212424432,
+          "std_over_layers": 3.111808397697709,
+          "min_layer": 18.707191994996872,
+          "max_layer": 35.453658536585365,
+          "demand_vs_naive": 0.49202566925509
+        },
+        "8": {
+          "mean": 27.62434578172568,
+          "std_over_layers": 3.9897626650831235,
+          "min_layer": 21.170899537094957,
+          "max_layer": 42.883648192168145,
+          "demand_vs_naive": 0.43163040283946374
+        }
+      },
+      "lag1": {
+        "reuse": 0.45957437388006833,
+        "chance": 0.22894492024739585,
+        "ratio": 2.0073578107059826,
+        "jaccard": 0.3270142067444855
+      },
+      "G2b_U4_le_16": false
+    }
+  },
+  "pooled": {
+    "U4_mean_over_domains": 19.120061299028805,
+    "G2b_U4_le_16": false,
+    "note": "30B U(k) is NOT a 235B result. Do not transplant."
+  }
+}

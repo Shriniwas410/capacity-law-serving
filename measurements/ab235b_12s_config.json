@@ -1,0 +1,26 @@
+{
+  "model": "Qwen3-235B-A22B-Q4_K_M",
+  "model_path": "/home/shri/models/qwen3-235b/Qwen3-235B-A22B-Q4_K_M-00001-of-00003.gguf",
+  "n_predict": 16,
+  "n_ctx": 512,
+  "n_batch": 1,
+  "n_ubatch": 1,
+  "temp": 0,
+  "seed": 1,
+  "ngl": 0,
+  "threads": 16,
+  "prompt": "The capital of France is",
+  "reasoning": "off",
+  "fit": "off",
+  "moe_stream": true,
+  "moe_stream_direct": true,
+  "arms": [
+    "cache_12s",
+    "cache_8s"
+  ],
+  "order": "12s first (OOM gate), 8s only if 12s exit=0",
+  "llama_cpp_git": "1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5",
+  "started": "2026-08-25T11:48:45",
+  "prior_8s_eval_tok_s": 0.29,
+  "prior_8s_note": "measurements/ab235b_verdict.json stream_direct, 2026-08-25T00:13:33"
+}

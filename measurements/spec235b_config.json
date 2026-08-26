@@ -1,0 +1,20 @@
+{
+  "target": "Qwen3-235B-A22B-Q4_K_M",
+  "draft": "Qwen3-0.6B-Q8_0",
+  "n_predict": 16,
+  "n_ctx": 512,
+  "n_batch": 512,
+  "n_ubatch": 1,
+  "temp": 0,
+  "seed": 1,
+  "ngl": 0,
+  "ngld": 0,
+  "moe_stream_direct": true,
+  "moe_stream_cache": "12s",
+  "reasoning": "off",
+  "spec_type": "draft-simple",
+  "llama_cpp_git": "1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5",
+  "started": "2026-08-25T18:51:29",
+  "prior_greedy_12s_eval_tok_s": 0.38,
+  "note": "Smoke. -b 512 -ub 1 (llama-cli -b 1 hits GGML_ASSERT n_tokens_all<=n_batch). Naive k=2 fits 12 slots ~54%. Not 200-prompt G3."
+}

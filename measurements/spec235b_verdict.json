@@ -1,0 +1,29 @@
+{
+  "target": "Qwen3-235B-A22B-Q4_K_M",
+  "draft": "Qwen3-0.6B-Q8_0",
+  "binary": "llama-cli",
+  "llama_cpp_git": "1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5",
+  "moe_stream_cache": "12s",
+  "n_batch": 512,
+  "n_ubatch": 1,
+  "n_ctx": 512,
+  "n_predict": 16,
+  "prompt_tokens": 28,
+  "eval_tokens": 16,
+  "temp": 0,
+  "ngl": 0,
+  "source": "measurements/spec235b_b512/",
+  "note": "eval tok/s from slot print_timing, not the 1-decimal Generation: line. looks_aborted in auto-verdict is a false positive (set_abort_callback). All arms exit=0.",
+  "b1_abort": {
+    "dir": "measurements/spec235b/",
+    "exit": 134,
+    "assert": "llama-context.cpp:1781 GGML_ASSERT(n_tokens_all <= cparams.n_batch) with -b 1"
+  },
+  "arms": {
+    "baseline": {"eval_tok_s": 0.30, "ms_per_tok": 3301.17, "prompt_tok_s": 0.25, "max_rss_gb": 16.70, "alpha": null},
+    "spec_k2": {"eval_tok_s": 0.24, "ms_per_tok": 4161.22, "prompt_tok_s": 0.27, "max_rss_gb": 17.55, "alpha": 0.75, "accepted": 9, "generated": 12, "mean_len": 2.50, "speedup_vs_baseline": 0.80},
+    "spec_k4": {"eval_tok_s": 0.23, "ms_per_tok": 4284.72, "prompt_tok_s": 0.26, "max_rss_gb": 17.55, "alpha": 0.78571, "accepted": 11, "generated": 14, "mean_len": 3.75, "speedup_vs_baseline": 0.77}
+  },
+  "G3_alpha_ge_0.55_smoke": true,
+  "wall_clock_speedup": false
+}

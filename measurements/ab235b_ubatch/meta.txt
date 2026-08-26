@@ -1,0 +1,29 @@
+HEAD=1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5 n=1 ctx=512
+=== ub1 2026-08-25T19:50:31-04:00 ===
+               total        used        free      shared  buff/cache   available
+Mem:            21Gi       1.5Gi        18Gi        10Mi       1.9Gi        20Gi
+Swap:          8.0Gi       676Mi       7.3Gi
+exit=0 ub1
+1.50.787.932 I common_perf_print: prompt eval time =  102404.71 ms /    16 tokens ( 6400.29 ms per token,     0.16 tokens per second)
+1.50.787.933 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,      inf tokens per second)
+1.50.787.934 I common_perf_print: unaccounted time =       1.09 ms /   0.0 %      (total - sampling - prompt eval - eval) / (total)
+	Maximum resident set size (kbytes): 17498192
+=== ub4 2026-08-25T19:52:24-04:00 ===
+               total        used        free      shared  buff/cache   available
+Mem:            21Gi       1.5Gi        16Gi        10Mi       3.3Gi        20Gi
+Swap:          8.0Gi       676Mi       7.3Gi
+exit=143 ub4
+0.20.182.299 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+	Maximum resident set size (kbytes): 17359528
+=== ub4_retry 2026-08-25T20:10:38-04:00 HEAD=1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5 ===
+exit=143 ub4_retry
+0.08.281.150 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+UB4_RETRY_DONE 2026-08-25T20:13:52-04:00
+=== ub4_retry 2026-08-25T20:20:49-04:00 HEAD=1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5 ===
+exit=0 ub4_retry
+0.06.341.863 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+1.02.735.159 I common_perf_print: prompt eval time =   56369.02 ms /    16 tokens ( 3523.06 ms per token,     0.28 tokens per second)
+1.02.735.162 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,      inf tokens per second)
+1.02.735.163 I common_perf_print: unaccounted time =       4.20 ms /   0.0 %      (total - sampling - prompt eval - eval) / (total)
+	Maximum resident set size (kbytes): 17507012
+UB4_RETRY_DONE 2026-08-25T20:21:53-04:00

@@ -1,0 +1,10 @@
+{
+  "exit": 0,
+  "serial_wave_log": true,
+  "aborted": false,
+  "eval_tok_s": 2.19,
+  "prompt_tok_s": 2.1,
+  "n_ctx": 512,
+  "PASS": true,
+  "finished": "2026-08-25T20:20:26"
+}

@@ -1,0 +1,26 @@
+{
+  "target": "Qwen3-235B-A22B-Q4_K_M",
+  "draft": "Qwen3-0.6B-Q8_0",
+  "n_predict": 16,
+  "n_ctx": 512,
+  "n_batch": 512,
+  "n_ubatch": 8,
+  "temp": 0,
+  "seed": 1,
+  "ngl": 0,
+  "ngld": 0,
+  "moe_stream_direct": true,
+  "moe_stream_cache": "12s",
+  "moe_stream_umax": true,
+  "reasoning": "off",
+  "spec_type": "draft-simple",
+  "llama_cpp_git": "1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5",
+  "started": "2026-08-25T21:42:57",
+  "compare_to": "measurements/spec235b_ub8",
+  "prior_ub8_eval_ms_per_tok": {
+    "baseline": 3089.56,
+    "k2": 3248.57,
+    "k4": 3162.69
+  },
+  "note": "Same protocol as spec235b_ub8 after ggml_set_skip_mul_mat_id. n=16 smoke."
+}

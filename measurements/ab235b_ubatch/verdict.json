@@ -1,0 +1,14 @@
+{
+  "ub1_prior_prompt_tok_s": 0.16,
+  "ub4": {
+    "exit": 0,
+    "timed_out": false,
+    "prompt_tok_s": 0.28,
+    "eval_tok_s": 0.28,
+    "max_rss_gb": 16.695987701416016,
+    "serial_wave_log": true,
+    "wave_stats": false
+  },
+  "finished": "2026-08-25T20:21:53",
+  "ratio_ub4_over_ub1_prompt": 1.7500000000000002
+}

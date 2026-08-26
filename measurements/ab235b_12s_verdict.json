@@ -1,0 +1,21 @@
+{
+  "cache_12s": {
+    "exit": 0,
+    "eval_tok_s": 0.38,
+    "prompt_tok_s": 0.11,
+    "max_rss_gb": 16.69634246826172,
+    "n_ctx": 512,
+    "oom": false
+  },
+  "cache_8s": {
+    "exit": 0,
+    "eval_tok_s": 0.3,
+    "prompt_tok_s": 0.27,
+    "max_rss_gb": 12.704898834228516,
+    "n_ctx": 512
+  },
+  "G_12s_fits": true,
+  "finished": "2026-08-25T11:51:43",
+  "note": "12s first. 8s second is warmer. Compare 12s eval tok/s to prior 0.29 (ab235b stream_direct).",
+  "ratio_12s_over_8s": 1.2666666666666668
+}

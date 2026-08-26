@@ -1,0 +1,54 @@
+warning: no usable GPU found, --gpu-layers option will be ignored
+warning: one possible reason is that llama.cpp was compiled without GPU support
+warning: consult docs/build.md for compilation instructions
+0.00.004.176 I llama_completion: llama backend init
+0.00.004.307 I llama_completion: load the model and apply lora adapter, if any
+0.00.004.318 W llama_model_load: disabling mmap because MoE expert streaming is enabled
+0.00.130.223 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.06.280.734 W llama_context: disabling op offload: the expert streaming cache is in host memory
+0.06.341.782 W sched_reserve: skipping fused GDN chunked probe: MoE stream cache has 12 slots (< 3*n_expert_used=24)
+0.06.341.863 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+0.06.354.637 I llama_completion: llama threadpool init, n_threads = 16
+0.06.354.708 I 
+0.06.354.847 I system_info: n_threads = 16 (n_threads_batch = 16) / 24 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX_VNNI = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.06.354.860 I 
+0.06.355.525 I sampler seed: 1
+0.06.355.553 I sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = -1
+	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+0.06.355.560 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+0.06.355.572 I generate: n_ctx = 512, n_batch = 8, n_predict = 1, n_keep = 0
+0.06.355.572 I 
+1.02.735.139 I common_perf_print:    sampling time =       7.30 ms
+1.02.735.151 I common_perf_print:    samplers time =       0.90 ms /    17 tokens
+1.02.735.158 I common_perf_print:        load time =   56370.02 ms
+1.02.735.159 I common_perf_print: prompt eval time =   56369.02 ms /    16 tokens ( 3523.06 ms per token,     0.28 tokens per second)
+1.02.735.162 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,      inf tokens per second)
+1.02.735.163 I common_perf_print:       total time =   56380.52 ms /    17 tokens
+1.02.735.163 I common_perf_print: unaccounted time =       4.20 ms /   0.0 %      (total - sampling - prompt eval - eval) / (total)
+1.02.735.163 I common_perf_print:    graphs reused =          0
+	Command being timed: "/home/shri/src/llama.cpp/build-pr25294/bin/llama-completion -m /home/shri/models/qwen3-235b/Qwen3-235B-A22B-Q4_K_M-00001-of-00003.gguf -ngl 0 -n 1 -t 16 --temp 0 --seed 1 -no-cnv -st --reasoning off -p Write a short Python function that returns the nth Fibonacci number. Only the function. --moe-stream --moe-stream-direct --moe-stream-cache 12s --moe-stream-io-threads 4 -fit off -c 512 -b 8 -ub 4"
+	User time (seconds): 278.57
+	System time (seconds): 28.34
+	Percent of CPU this job got: 484%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:03.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 17507012
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 16
+	Minor (reclaiming a frame) page faults: 4382568
+	Voluntary context switches: 42950
+	Involuntary context switches: 542
+	Swaps: 0
+	File system inputs: 152248152
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

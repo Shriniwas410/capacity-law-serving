@@ -1,0 +1,652 @@
+{
+  "traces_dir": "measurements/traces",
+  "n_experts": 128,
+  "prefetch_charges_slots": true,
+  "objective": "demand_misses",
+  "oracle_next_noncausal": true,
+  "domains": {
+    "code": {
+      "path": "measurements/traces/code.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "shape": [
+        94,
+        2048,
+        8
+      ],
+      "loads_per_tok": 752,
+      "by_cap": {
+        "0.0625": {
+          "cap_experts": 8,
+          "cap_frac": 0.0625,
+          "miss": {
+            "lru": 490.087890625,
+            "static": 443.34228515625,
+            "belady": 332.61474609375,
+            "belady_W8": 333.12060546875,
+            "lru_plus_lag1_prefetch": 490.087890625,
+            "lru_plus_lag2_prefetch": 638.06884765625,
+            "lru_plus_oracle_next_prefetch": 211.16943359375
+          },
+          "hit_lru": 0.3482873794880319,
+          "hit_opt": 0.5576931567902261,
+          "hit_opt_W8": 0.5570204714511303,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 490.087890625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 490.087890625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 638.06884765625,
+              "prefetch_loads_per_tok_mean_layer": 4.169194647606383
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 211.16943359375,
+              "prefetch_loads_per_tok_mean_layer": 4.847162774268617
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.9427503118496652
+        },
+        "0.09375": {
+          "cap_experts": 12,
+          "cap_frac": 0.09375,
+          "miss": {
+            "lru": 350.56201171875,
+            "static": 363.72216796875,
+            "belady": 234.68017578125,
+            "belady_W8": 235.46240234375,
+            "lru_plus_lag1_prefetch": 350.56201171875,
+            "lru_plus_lag2_prefetch": 410.79492187500006,
+            "lru_plus_oracle_next_prefetch": 46.2861328125
+          },
+          "hit_lru": 0.5338271120761303,
+          "hit_opt": 0.6879252981632313,
+          "hit_opt_W8": 0.6868851032662899,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 350.56201171875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 350.56201171875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 410.79492187500006,
+              "prefetch_loads_per_tok_mean_layer": 3.6301996758643615
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 46.2861328125,
+              "prefetch_loads_per_tok_mean_layer": 3.6979668799867023
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.5233111605097491
+        },
+        "0.125": {
+          "cap_experts": 16,
+          "cap_frac": 0.125,
+          "miss": {
+            "lru": 279.8125,
+            "static": 307.14306640625,
+            "belady": 175.4609375,
+            "belady_W8": 179.4052734375,
+            "lru_plus_lag1_prefetch": 279.8125,
+            "lru_plus_lag2_prefetch": 279.8125,
+            "lru_plus_oracle_next_prefetch": 22.6845703125
+          },
+          "hit_lru": 0.6279089095744681,
+          "hit_opt": 0.7666742852393618,
+          "hit_opt_W8": 0.7614291576628989,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 279.8125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 279.8125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 279.8125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 22.6845703125,
+              "prefetch_loads_per_tok_mean_layer": 2.9592596825132977
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        },
+        "0.25": {
+          "cap_experts": 32,
+          "cap_frac": 0.25,
+          "miss": {
+            "lru": 128.3037109375,
+            "static": 168.19677734375,
+            "belady": 67.66455078125,
+            "belady_W8": 116.2255859375,
+            "lru_plus_lag1_prefetch": 128.3037109375,
+            "lru_plus_lag2_prefetch": 128.3037109375,
+            "lru_plus_oracle_next_prefetch": 5.47705078125
+          },
+          "hit_lru": 0.8293833631150266,
+          "hit_opt": 0.9100205441738697,
+          "hit_opt_W8": 0.8454446995511968,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 128.3037109375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 128.3037109375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 128.3037109375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 5.47705078125,
+              "prefetch_loads_per_tok_mean_layer": 1.358642578125
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        }
+      }
+    },
+    "general": {
+      "path": "measurements/traces/general.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "shape": [
+        94,
+        2048,
+        8
+      ],
+      "loads_per_tok": 752,
+      "by_cap": {
+        "0.0625": {
+          "cap_experts": 8,
+          "cap_frac": 0.0625,
+          "miss": {
+            "lru": 501.146484375,
+            "static": 498.51708984375,
+            "belady": 349.408203125,
+            "belady_W8": 349.908203125,
+            "lru_plus_lag1_prefetch": 501.146484375,
+            "lru_plus_lag2_prefetch": 653.21728515625,
+            "lru_plus_oracle_next_prefetch": 209.95703125
+          },
+          "hit_lru": 0.3335818026928191,
+          "hit_opt": 0.5353614320146276,
+          "hit_opt_W8": 0.5346965383976063,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 501.146484375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 501.146484375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 653.21728515625,
+              "prefetch_loads_per_tok_mean_layer": 4.2958620761303195
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 209.95703125,
+              "prefetch_loads_per_tok_mean_layer": 4.958038979388298
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -1.0055046878632126
+        },
+        "0.09375": {
+          "cap_experts": 12,
+          "cap_frac": 0.09375,
+          "miss": {
+            "lru": 368.9267578125,
+            "static": 433.78857421875,
+            "belady": 257.7646484375,
+            "belady_W8": 258.759765625,
+            "lru_plus_lag1_prefetch": 368.9267578125,
+            "lru_plus_lag2_prefetch": 437.29296875,
+            "lru_plus_oracle_next_prefetch": 46.3935546875
+          },
+          "hit_lru": 0.5094059071642287,
+          "hit_opt": 0.6572278611203457,
+          "hit_opt_W8": 0.6559045669880319,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 368.9267578125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 368.9267578125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 437.29296875,
+              "prefetch_loads_per_tok_mean_layer": 3.8653746259973403
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 46.3935546875,
+              "prefetch_loads_per_tok_mean_layer": 3.8965830701462765
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.6205689161517937
+        },
+        "0.125": {
+          "cap_experts": 16,
+          "cap_frac": 0.125,
+          "miss": {
+            "lru": 304.166015625,
+            "static": 379.2822265625,
+            "belady": 200.66943359375,
+            "belady_W8": 205.35107421875,
+            "lru_plus_lag1_prefetch": 304.166015625,
+            "lru_plus_lag2_prefetch": 304.166015625,
+            "lru_plus_oracle_next_prefetch": 22.6689453125
+          },
+          "hit_lru": 0.5955239153922872,
+          "hit_opt": 0.7331523489444813,
+          "hit_opt_W8": 0.7269267630069813,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 304.166015625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 304.166015625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 304.166015625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 22.6689453125,
+              "prefetch_loads_per_tok_mean_layer": 3.2177266871675534
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        },
+        "0.25": {
+          "cap_experts": 32,
+          "cap_frac": 0.25,
+          "miss": {
+            "lru": 162.4892578125,
+            "static": 218.962890625,
+            "belady": 87.7236328125,
+            "belady_W8": 142.7763671875,
+            "lru_plus_lag1_prefetch": 162.4892578125,
+            "lru_plus_lag2_prefetch": 162.4892578125,
+            "lru_plus_oracle_next_prefetch": 6.20361328125
+          },
+          "hit_lru": 0.7839238592918882,
+          "hit_opt": 0.883346232962101,
+          "hit_opt_W8": 0.8101378095910904,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 162.4892578125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 162.4892578125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 162.4892578125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 6.20361328125,
+              "prefetch_loads_per_tok_mean_layer": 1.7223134142287233
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        }
+      }
+    },
+    "math": {
+      "path": "measurements/traces/math.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "shape": [
+        94,
+        2048,
+        8
+      ],
+      "loads_per_tok": 752,
+      "by_cap": {
+        "0.0625": {
+          "cap_experts": 8,
+          "cap_frac": 0.0625,
+          "miss": {
+            "lru": 537.640625,
+            "static": 506.88525390625,
+            "belady": 379.009765625,
+            "belady_W8": 379.7138671875,
+            "lru_plus_lag1_prefetch": 537.640625,
+            "lru_plus_lag2_prefetch": 658.44677734375,
+            "lru_plus_oracle_next_prefetch": 179.82080078125
+          },
+          "hit_lru": 0.2850523603723404,
+          "hit_opt": 0.49599765209441493,
+          "hit_opt_W8": 0.49506134682513303,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 537.640625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 537.640625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 658.44677734375,
+              "prefetch_loads_per_tok_mean_layer": 4.74809881981383
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 179.82080078125,
+              "prefetch_loads_per_tok_mean_layer": 5.442024393284575
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.764950499947439
+        },
+        "0.09375": {
+          "cap_experts": 12,
+          "cap_frac": 0.09375,
+          "miss": {
+            "lru": 415.45166015625,
+            "static": 441.85693359375,
+            "belady": 287.591796875,
+            "belady_W8": 288.669921875,
+            "lru_plus_lag1_prefetch": 415.45166015625,
+            "lru_plus_lag2_prefetch": 482.65624999999994,
+            "lru_plus_oracle_next_prefetch": 53.57177734375
+          },
+          "hit_lru": 0.4475376859624335,
+          "hit_opt": 0.617564099900266,
+          "hit_opt_W8": 0.6161304230385638,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 415.45166015625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 415.45166015625,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 482.65624999999994,
+              "prefetch_loads_per_tok_mean_layer": 4.52622693650266
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 53.57177734375,
+              "prefetch_loads_per_tok_mean_layer": 4.38809528756649
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.5300809939572264
+        },
+        "0.125": {
+          "cap_experts": 16,
+          "cap_frac": 0.125,
+          "miss": {
+            "lru": 348.376953125,
+            "static": 389.935546875,
+            "belady": 228.435546875,
+            "belady_W8": 232.46240234375,
+            "lru_plus_lag1_prefetch": 348.376953125,
+            "lru_plus_lag2_prefetch": 348.376953125,
+            "lru_plus_oracle_next_prefetch": 27.83056640625
+          },
+          "hit_lru": 0.536732775099734,
+          "hit_opt": 0.6962293259640957,
+          "hit_opt_W8": 0.6908744649684175,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 348.376953125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 348.376953125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 348.376953125,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 27.83056640625,
+              "prefetch_loads_per_tok_mean_layer": 3.6851936502659575
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        },
+        "0.25": {
+          "cap_experts": 32,
+          "cap_frac": 0.25,
+          "miss": {
+            "lru": 192.646484375,
+            "static": 239.71044921875,
+            "belady": 109.23974609375,
+            "belady_W8": 163.67138671875,
+            "lru_plus_lag1_prefetch": 192.64648437499997,
+            "lru_plus_lag2_prefetch": 192.64648437499997,
+            "lru_plus_oracle_next_prefetch": 7.136230468749999
+          },
+          "hit_lru": 0.7438211643949468,
+          "hit_opt": 0.8547343801944813,
+          "hit_opt_W8": 0.7823518793633644,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 192.64648437499997,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 192.64648437499997,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 192.64648437499997,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 7.136230468749999,
+              "prefetch_loads_per_tok_mean_layer": 2.042812915558511
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 9.809012472568277e-16
+        }
+      }
+    },
+    "medical": {
+      "path": "measurements/traces/medical.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "shape": [
+        94,
+        2048,
+        8
+      ],
+      "loads_per_tok": 752,
+      "by_cap": {
+        "0.0625": {
+          "cap_experts": 8,
+          "cap_frac": 0.0625,
+          "miss": {
+            "lru": 503.66552734375,
+            "static": 470.57421875,
+            "belady": 344.85302734375,
+            "belady_W8": 345.5302734375,
+            "lru_plus_lag1_prefetch": 503.66552734375006,
+            "lru_plus_lag2_prefetch": 643.44580078125,
+            "lru_plus_oracle_next_prefetch": 204.59277343749997
+          },
+          "hit_lru": 0.3302320115109707,
+          "hit_opt": 0.5414188466173537,
+          "hit_opt_W8": 0.5405182534075799,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 503.66552734375006,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 503.66552734375006,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 643.44580078125,
+              "prefetch_loads_per_tok_mean_layer": 4.32768866356383
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 204.59277343749997,
+              "prefetch_loads_per_tok_mean_layer": 5.001973902925532
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.8839285989977181
+        },
+        "0.09375": {
+          "cap_experts": 12,
+          "cap_frac": 0.09375,
+          "miss": {
+            "lru": 367.94873046875,
+            "static": 399.53564453125,
+            "belady": 247.9169921875,
+            "belady_W8": 249.16748046875,
+            "lru_plus_lag1_prefetch": 367.94873046875,
+            "lru_plus_lag2_prefetch": 430.14892578125006,
+            "lru_plus_oracle_next_prefetch": 49.7822265625
+          },
+          "hit_lru": 0.510706475440492,
+          "hit_opt": 0.6703231486868351,
+          "hit_opt_W8": 0.668660265334109,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 367.94873046875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 367.94873046875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 430.14892578125006,
+              "prefetch_loads_per_tok_mean_layer": 3.9093562998670213
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 49.7822265625,
+              "prefetch_loads_per_tok_mean_layer": 3.8800438414228724
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": -0.5236533149171275
+        },
+        "0.125": {
+          "cap_experts": 16,
+          "cap_frac": 0.125,
+          "miss": {
+            "lru": 293.6318359375,
+            "static": 341.609375,
+            "belady": 188.61083984375,
+            "belady_W8": 193.162109375,
+            "lru_plus_lag1_prefetch": 293.6318359375,
+            "lru_plus_lag2_prefetch": 293.6318359375,
+            "lru_plus_oracle_next_prefetch": 25.141601562500004
+          },
+          "hit_lru": 0.6095321330618351,
+          "hit_opt": 0.7491877129737368,
+          "hit_opt_W8": 0.7431354928523937,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 293.6318359375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 293.6318359375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 293.6318359375,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 25.141601562500004,
+              "prefetch_loads_per_tok_mean_layer": 3.102139087433511
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        },
+        "0.25": {
+          "cap_experts": 32,
+          "cap_frac": 0.25,
+          "miss": {
+            "lru": 145.4169921875,
+            "static": 178.67236328125,
+            "belady": 76.02490234375,
+            "belady_W8": 130.56005859375,
+            "lru_plus_lag1_prefetch": 145.4169921875,
+            "lru_plus_lag2_prefetch": 145.4169921875,
+            "lru_plus_oracle_next_prefetch": 5.52099609375
+          },
+          "hit_lru": 0.8066263401761968,
+          "hit_opt": 0.8989030553939494,
+          "hit_opt_W8": 0.8263829008061835,
+          "prefetch": {
+            "none": {
+              "demand_miss_per_tok_sum_layers": 145.4169921875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag1": {
+              "demand_miss_per_tok_sum_layers": 145.4169921875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "lag2": {
+              "demand_miss_per_tok_sum_layers": 145.4169921875,
+              "prefetch_loads_per_tok_mean_layer": 0.0
+            },
+            "oracle_next": {
+              "demand_miss_per_tok_sum_layers": 5.52099609375,
+              "prefetch_loads_per_tok_mean_layer": 1.5407299285239362
+            }
+          },
+          "lag2_frac_of_LRU_W8_gap": 0.0
+        }
+      }
+    }
+  },
+  "started": 1787699144.3064609,
+  "pooled": {
+    "G2a_cap_12.5pct_lag2_frac_of_LRU_W8_gap": 0.0,
+    "G2a_causal_ge_10pct": false,
+    "elapsed_s": 96.0,
+    "note": "lag1 persist-prefetch of the current set is nearly a no-op (already resident). lag2 union is the causal arm. oracle_next is NON-causal. Do not transplant 30B miss fractions. Not a tok/s claim."
+  }
+}

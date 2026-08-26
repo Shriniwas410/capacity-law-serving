@@ -1,0 +1,30 @@
+{
+  "model": "Qwen3-235B-A22B-Q4_K_M",
+  "model_path": "/home/shri/models/qwen3-235b/Qwen3-235B-A22B-Q4_K_M-00001-of-00003.gguf",
+  "n_predict": 16,
+  "n_ctx": 512,
+  "n_batch": 1,
+  "n_ubatch": 1,
+  "temp": 0,
+  "seed": 1,
+  "ngl": 0,
+  "threads": 16,
+  "prompt": "The capital of France is",
+  "reasoning": "off",
+  "fit": "off",
+  "moe_stream_cache": "8s",
+  "pagecache": {
+    "moe_stream": true,
+    "moe_stream_direct": false
+  },
+  "stream_direct": {
+    "moe_stream": true,
+    "moe_stream_direct": true
+  },
+  "not_compared": {
+    "full_mmap": "CPU_REPACK ~105GB OOM \u2014 see mmap_repack_oom.stderr",
+    "legacy_0.44_tok_s": "2026-08-05 Windows llama-server -ngl 99 -ncmoe 94, not this binary"
+  },
+  "llama_cpp_git": "1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5",
+  "started": "2026-08-25T00:10:16"
+}

@@ -1,0 +1,17 @@
+{
+  "arms": {
+    "pagecache": {
+      "eval_tok_s": 0.26,
+      "prompt_tok_s": 0.12,
+      "n_ctx": 512
+    },
+    "stream_direct": {
+      "eval_tok_s": 0.29,
+      "prompt_tok_s": 0.24,
+      "n_ctx": 512
+    }
+  },
+  "ratio_direct_over_pagecache": 1.1153846153846152,
+  "finished": "2026-08-25T00:13:33",
+  "note": "CPU-only stream A/B, n=16, ctx=512, cache=8s. Not comparable to 0.44 GPU llama-server -ncmoe, nor to G0 2048-token prefill."
+}

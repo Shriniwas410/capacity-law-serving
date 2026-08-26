@@ -1,0 +1,71 @@
+{
+  "arms": {
+    "baseline": {
+      "serial_wave_log": true,
+      "n_ctx": 512,
+      "eval_ms": 48988.42,
+      "eval_tokens": 16,
+      "eval_ms_per_tok": 3061.78,
+      "eval_tok_s": 0.33,
+      "prompt_ms": 66576.41,
+      "prompt_tokens": 28,
+      "prompt_ms_per_tok": 2377.73,
+      "prompt_tok_s": 0.42,
+      "max_rss_gb": 16.70749282836914
+    },
+    "spec_k2": {
+      "serial_wave_log": true,
+      "n_ctx": 512,
+      "eval_ms": 61505.15,
+      "eval_tokens": 16,
+      "eval_ms_per_tok": 3844.07,
+      "eval_tok_s": 0.26,
+      "prompt_ms": 61151.62,
+      "prompt_tokens": 28,
+      "prompt_ms_per_tok": 2183.99,
+      "prompt_tok_s": 0.46,
+      "draft": {
+        "alpha": 0.0,
+        "accepted": 0,
+        "generated": 27,
+        "mean_accept_len": 1.0
+      },
+      "max_rss_gb": 17.559406280517578
+    },
+    "spec_k4": {
+      "serial_wave_log": true,
+      "n_ctx": 512,
+      "eval_ms": 67392.17,
+      "eval_tokens": 16,
+      "eval_ms_per_tok": 4212.01,
+      "eval_tok_s": 0.24,
+      "prompt_ms": 61223.65,
+      "prompt_tokens": 28,
+      "prompt_ms_per_tok": 2186.56,
+      "prompt_tok_s": 0.46,
+      "draft": {
+        "alpha": 0.0,
+        "accepted": 0,
+        "generated": 50,
+        "mean_accept_len": 1.0
+      },
+      "max_rss_gb": 17.562244415283203
+    }
+  },
+  "G3_alpha_ge_0.55_smoke": false,
+  "finished": "2026-08-25T21:50:04",
+  "llama_cpp_git": "{\n  \"target\": \"Qwen3-235B-A22B-Q4_K_M\",\n  \"draft\": \"Qwen3-0.6B-Q8_0\",\n  \"n_predict\": 16,\n  \"n_ctx\": 512,\n  \"n_batch\": 512,\n  \"n_ubatch\": 8,\n  \"temp\": 0,\n  \"seed\": 1,\n  \"ngl\": 0,\n  \"ngld\": 0,\n  \"moe_stream_direct\": true,\n  \"moe_stream_cache\": \"12s\",\n  \"moe_stream_umax\": true,\n  \"reasoning\": \"off\",\n  \"spec_type\": \"draft-simple\",\n  \"llama_cpp_git\": \"1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5\",\n  \"started\": \"2026-08-25T21:42:57\",\n  \"compare_to\": \"measurements/spec235b_ub8\",\n  \"prior_ub8_eval_ms_per_tok\": {\n    \"baseline\": 3089.56,\n    \"k2\": 3248.57,\n    \"k4\": 3162.69\n  },\n  \"note\": \"Same protocol as spec235b_ub8 after ggml_set_skip_mul_mat_id. n=16 smoke.\"\n}\n",
+  "n_ubatch": 8,
+  "moe_stream_cache": "12s",
+  "moe_stream_umax": true,
+  "note": "slot print_timing. n=16 smoke. Compare eval_ms_per_tok to spec235b_ub8 3089.56 / 3248.57 / 3162.69.",
+  "prior_ub8_eval_ms_per_tok": {
+    "baseline": 3089.56,
+    "k2": 3248.57,
+    "k4": 3162.69
+  },
+  "spec_k2_speedup": 0.7878787878787878,
+  "spec_k2_alpha": 0.0,
+  "spec_k4_speedup": 0.7272727272727272,
+  "spec_k4_alpha": 0.0
+}

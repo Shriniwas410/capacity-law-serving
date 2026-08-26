@@ -1,0 +1,21 @@
+{
+  "model": "Qwen3-30B-A3B-Q4_K_M",
+  "model_path": "/home/shri/models/Qwen3-30B-A3B-Q4_K_M.gguf",
+  "n_predict": 8,
+  "n_ctx": 512,
+  "n_batch": 8,
+  "n_ubatch": 4,
+  "moe_stream_cache": "8s",
+  "temp": 0,
+  "seed": 1,
+  "ngl": 0,
+  "threads": 16,
+  "prompt": "The capital of France is",
+  "fit": "off",
+  "moe_stream": true,
+  "moe_stream_direct": true,
+  "llama_cpp_git": "1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5",
+  "llama_cpp_diffstat": " src/llama-context.cpp | 17 +++++++++++++++++  src/llama-graph.cpp   | 28 ++++++++++++++++++++--------  2 files changed, 37 insertions(+), 8 deletions(-) ",
+  "purpose": "serial-wave smoke: 8 slots + ub=4 must exit 0 and log serial waves",
+  "started": "2026-08-25T19:50:04"
+}

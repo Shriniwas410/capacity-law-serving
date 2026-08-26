@@ -1,0 +1,145 @@
+HEAD=1248fd8fa8cfebaece5ea992e4d951c1e18bb9d5 n=16 ctx=512 ub=8 skip_empty_gemm=1
+=== baseline 2026-08-25T21:04:47-04:00 ===
+               total        used        free      shared  buff/cache   available
+Mem:            21Gi       1.3Gi        18Gi       6.4Mi       2.2Gi        20Gi
+Swap:          8.0Gi       754Mi       7.3Gi
+exit=0 baseline
+measurements/spec235b_skip/baseline.stderr:0.00.222.935 I alloc_bufs:          CPU expert cache size = 12274.88 MiB (12 slots per layer)
+measurements/spec235b_skip/baseline.stderr:0.08.255.068 I llama_context: MoE expert streaming with 12 cache slots, n_ubatch = 8
+measurements/spec235b_skip/baseline.stderr:0.08.255.124 D set_abort_callback: call
+measurements/spec235b_skip/baseline.stderr:0.08.315.033 W sched_reserve: skipping fused GDN chunked probe: MoE stream cache has 12 slots (< 3*n_expert_used=24)
+measurements/spec235b_skip/baseline.stderr:0.08.315.077 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+measurements/spec235b_skip/baseline.stderr:0.08.324.703 I cmn  common_init_: skipping warmup: not supported with MoE expert streaming
+measurements/spec235b_skip/baseline.stderr:0.26.555.620 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 512, kv_unified = 'false'
+measurements/spec235b_skip/baseline.stderr:0.26.562.366 I srv          init: idle slots will be saved to prompt cache upon starting a new task
+measurements/spec235b_skip/baseline.stderr:0.26.659.162 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:0.26.659.259 I srv  update_slots: all slots are idle
+measurements/spec235b_skip/baseline.stderr:0.26.729.500 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:0.26.729.501 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:1.46.885.832 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:1.46.885.832 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:1.49.878.105 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:1.49.878.105 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:1.53.683.818 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:1.53.683.819 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:1.56.601.309 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:1.56.601.329 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:1.59.467.325 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:1.59.467.325 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.02.913.315 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.02.913.315 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.06.324.890 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.06.324.891 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.09.403.812 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.09.403.812 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.12.512.119 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.12.512.119 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.15.434.087 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.15.434.088 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.18.609.307 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.18.609.308 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.21.663.510 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.21.663.510 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.25.609.477 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.25.609.478 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.29.255.119 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.29.255.120 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.33.050.460 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.33.050.461 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/baseline.stderr:2.36.079.238 I slot print_timing: id  0 | task 0 | prompt eval time =   80155.37 ms /    28 tokens ( 2862.69 ms per token,     0.35 tokens per second)
+measurements/spec235b_skip/baseline.stderr:2.36.079.250 I slot print_timing: id  0 | task 0 |        eval time =   49193.46 ms /    16 tokens ( 3074.59 ms per token,     0.33 tokens per second)
+measurements/spec235b_skip/baseline.stderr:2.36.079.858 D que    start_loop: update slots
+measurements/spec235b_skip/baseline.stderr:2.36.079.858 I srv  update_slots: all slots are idle
+measurements/spec235b_skip/baseline.stderr:	Maximum resident set size (kbytes): 17519288
+measurements/spec235b_skip/baseline.stdout:[ Prompt: 0.3 t/s | Generation: 0.3 t/s ]
+=== spec_k2 2026-08-25T21:07:24-04:00 ===
+               total        used        free      shared  buff/cache   available
+Mem:            21Gi       1.4Gi        17Gi       6.4Mi       3.4Gi        20Gi
+Swap:          8.0Gi       754Mi       7.3Gi
+exit=0 spec_k2
+measurements/spec235b_skip/spec_k2.stderr:0.00.209.538 I alloc_bufs:          CPU expert cache size = 12274.88 MiB (12 slots per layer)
+measurements/spec235b_skip/spec_k2.stderr:0.17.324.034 I llama_context: MoE expert streaming with 12 cache slots, n_ubatch = 8
+measurements/spec235b_skip/spec_k2.stderr:0.17.324.089 D set_abort_callback: call
+measurements/spec235b_skip/spec_k2.stderr:0.17.365.099 W sched_reserve: skipping fused GDN chunked probe: MoE stream cache has 12 slots (< 3*n_expert_used=24)
+measurements/spec235b_skip/spec_k2.stderr:0.17.365.155 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+measurements/spec235b_skip/spec_k2.stderr:0.17.374.096 I cmn  common_init_: skipping warmup: not supported with MoE expert streaming
+measurements/spec235b_skip/spec_k2.stderr:0.17.558.015 W llama_moe_stream_resolve_slots: MoE expert streaming requires a MoE model -- disabled
+measurements/spec235b_skip/spec_k2.stderr:0.23.275.819 D set_abort_callback: call
+measurements/spec235b_skip/spec_k2.stderr:0.32.445.320 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 512, kv_unified = 'false'
+measurements/spec235b_skip/spec_k2.stderr:0.32.714.734 I srv          init: idle slots will be saved to prompt cache upon starting a new task
+measurements/spec235b_skip/spec_k2.stderr:0.32.747.406 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:0.32.747.410 I srv  update_slots: all slots are idle
+measurements/spec235b_skip/spec_k2.stderr:0.32.759.364 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:0.32.759.383 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:1.35.301.314 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:1.35.301.314 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:1.43.331.677 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=750, ids.size=3, n_draft=2
+measurements/spec235b_skip/spec_k2.stderr:1.43.331.761 D slot   operator(): id  0 | task 0 | accepted 2/2 draft tokens, new n_tokens = 31
+measurements/spec235b_skip/spec_k2.stderr:1.43.331.769 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:1.43.331.769 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:1.52.454.469 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=75698, ids.size=1, n_draft=2
+measurements/spec235b_skip/spec_k2.stderr:1.52.454.578 D slot   operator(): id  0 | task 0 | accepted 0/2 draft tokens, new n_tokens = 32
+measurements/spec235b_skip/spec_k2.stderr:1.52.454.606 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:1.52.454.606 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:2.01.700.040 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=262, ids.size=3, n_draft=2
+measurements/spec235b_skip/spec_k2.stderr:2.01.700.234 D slot   operator(): id  0 | task 0 | accepted 2/2 draft tokens, new n_tokens = 35
+measurements/spec235b_skip/spec_k2.stderr:2.01.700.242 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:2.01.700.242 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:2.09.902.835 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=2651, ids.size=3, n_draft=2
+measurements/spec235b_skip/spec_k2.stderr:2.09.902.992 D slot   operator(): id  0 | task 0 | accepted 2/2 draft tokens, new n_tokens = 38
+measurements/spec235b_skip/spec_k2.stderr:2.09.902.999 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:2.09.903.000 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:2.19.196.613 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=15, ids.size=2, n_draft=2
+measurements/spec235b_skip/spec_k2.stderr:2.19.196.666 D slot   operator(): id  0 | task 0 | accepted 1/2 draft tokens, new n_tokens = 40
+measurements/spec235b_skip/spec_k2.stderr:2.19.196.673 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:2.19.196.674 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k2.stderr:2.27.321.367 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=470, ids.size=3, n_draft=2
+measurements/spec235b_skip/spec_k2.stderr:2.27.321.504 I slot print_timing: id  0 | task 0 | prompt eval time =   62541.71 ms /    28 tokens ( 2233.63 ms per token,     0.45 tokens per second)
+measurements/spec235b_skip/spec_k2.stderr:2.27.321.504 I slot print_timing: id  0 | task 0 |        eval time =   52020.20 ms /    16 tokens ( 3251.26 ms per token,     0.31 tokens per second)
+measurements/spec235b_skip/spec_k2.stderr:2.27.321.538 I slot print_timing: id  0 | task 0 | draft acceptance = 0.75000 (    9 accepted /    12 generated), mean len =  2.50
+measurements/spec235b_skip/spec_k2.stderr:2.27.321.926 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k2.stderr:2.27.321.926 I srv  update_slots: all slots are idle
+measurements/spec235b_skip/spec_k2.stderr:	Maximum resident set size (kbytes): 18412216
+measurements/spec235b_skip/spec_k2.stdout:[ Prompt: 0.4 t/s | Generation: 0.3 t/s ]
+=== spec_k4 2026-08-25T21:09:52-04:00 ===
+               total        used        free      shared  buff/cache   available
+Mem:            21Gi       1.3Gi        18Gi       6.4Mi       2.4Gi        20Gi
+Swap:          8.0Gi       764Mi       7.3Gi
+exit=0 spec_k4
+measurements/spec235b_skip/spec_k4.stderr:0.00.216.397 I alloc_bufs:          CPU expert cache size = 12274.88 MiB (12 slots per layer)
+measurements/spec235b_skip/spec_k4.stderr:0.08.302.563 I llama_context: MoE expert streaming with 12 cache slots, n_ubatch = 8
+measurements/spec235b_skip/spec_k4.stderr:0.08.302.587 D set_abort_callback: call
+measurements/spec235b_skip/spec_k4.stderr:0.08.341.080 W sched_reserve: skipping fused GDN chunked probe: MoE stream cache has 12 slots (< 3*n_expert_used=24)
+measurements/spec235b_skip/spec_k4.stderr:0.08.341.129 W build_moe_ffn: MoE stream cache has 12 slots (< 3*n_expert_used=24); using serial waves of 12 (no overlap preload)
+measurements/spec235b_skip/spec_k4.stderr:0.08.348.639 I cmn  common_init_: skipping warmup: not supported with MoE expert streaming
+measurements/spec235b_skip/spec_k4.stderr:0.08.540.173 W llama_moe_stream_resolve_slots: MoE expert streaming requires a MoE model -- disabled
+measurements/spec235b_skip/spec_k4.stderr:0.09.179.548 D set_abort_callback: call
+measurements/spec235b_skip/spec_k4.stderr:0.14.737.031 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 512, kv_unified = 'false'
+measurements/spec235b_skip/spec_k4.stderr:0.14.786.269 I srv          init: idle slots will be saved to prompt cache upon starting a new task
+measurements/spec235b_skip/spec_k4.stderr:0.14.806.552 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:0.14.806.555 I srv  update_slots: all slots are idle
+measurements/spec235b_skip/spec_k4.stderr:0.14.813.670 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:0.14.813.671 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k4.stderr:1.16.595.436 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:1.16.595.436 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k4.stderr:1.29.045.444 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=75698, ids.size=4, n_draft=4
+measurements/spec235b_skip/spec_k4.stderr:1.29.045.609 D slot   operator(): id  0 | task 0 | accepted 3/4 draft tokens, new n_tokens = 32
+measurements/spec235b_skip/spec_k4.stderr:1.29.045.616 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:1.29.045.617 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k4.stderr:1.41.155.502 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=308, ids.size=5, n_draft=4
+measurements/spec235b_skip/spec_k4.stderr:1.41.155.562 D slot   operator(): id  0 | task 0 | accepted 4/4 draft tokens, new n_tokens = 37
+measurements/spec235b_skip/spec_k4.stderr:1.41.155.567 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:1.41.155.568 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k4.stderr:1.55.676.444 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=15, ids.size=3, n_draft=4
+measurements/spec235b_skip/spec_k4.stderr:1.55.676.507 D slot   operator(): id  0 | task 0 | accepted 2/4 draft tokens, new n_tokens = 40
+measurements/spec235b_skip/spec_k4.stderr:1.55.676.514 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:1.55.676.514 D srv  update_slots: posting NEXT_RESPONSE
+measurements/spec235b_skip/spec_k4.stderr:2.05.216.150 D slot   operator(): id  0 | task 0 | add accepted tokens: sampled=470, ids.size=3, n_draft=2
+measurements/spec235b_skip/spec_k4.stderr:2.05.216.221 I slot print_timing: id  0 | task 0 | prompt eval time =   61781.64 ms /    28 tokens ( 2206.49 ms per token,     0.45 tokens per second)
+measurements/spec235b_skip/spec_k4.stderr:2.05.216.222 I slot print_timing: id  0 | task 0 |        eval time =   48620.81 ms /    16 tokens ( 3038.80 ms per token,     0.33 tokens per second)
+measurements/spec235b_skip/spec_k4.stderr:2.05.216.237 I slot print_timing: id  0 | task 0 | draft acceptance = 0.78571 (   11 accepted /    14 generated), mean len =  3.75
+measurements/spec235b_skip/spec_k4.stderr:2.05.216.413 D que    start_loop: update slots
+measurements/spec235b_skip/spec_k4.stderr:2.05.216.430 I srv  update_slots: all slots are idle
+measurements/spec235b_skip/spec_k4.stderr:	Maximum resident set size (kbytes): 18413900
+measurements/spec235b_skip/spec_k4.stdout:[ Prompt: 0.5 t/s | Generation: 0.3 t/s ]
+SPEC235B_SKIP_DONE 2026-08-25T21:11:57-04:00

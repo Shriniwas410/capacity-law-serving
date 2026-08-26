@@ -1,0 +1,318 @@
+{
+  "traces_dir": "measurements/traces",
+  "domains": {
+    "code": {
+      "path": "measurements/traces/code.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          94,
+          2048,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 3808,
+        "count_max": 23032,
+        "count_std": 3693.436162640421,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.171231381679469,
+          "std_over_layers": 0.6003243027527566,
+          "min_layer": 11.20322423058134,
+          "max_layer": 15.13971665852467,
+          "demand_vs_naive": 0.7607019613549668
+        },
+        "3": {
+          "mean": 15.515619475468483,
+          "std_over_layers": 1.2091183930763147,
+          "min_layer": 13.63245356793744,
+          "max_layer": 21.487781036168133,
+          "demand_vs_naive": 0.6464841448111868
+        },
+        "4": {
+          "mean": 18.347515996462572,
+          "std_over_layers": 1.7774098035575772,
+          "min_layer": 15.62640586797066,
+          "max_layer": 27.1320293398533,
+          "demand_vs_naive": 0.5733598748894554
+        },
+        "6": {
+          "mean": 23.006805802897283,
+          "std_over_layers": 2.750345330369841,
+          "min_layer": 18.892315222711698,
+          "max_layer": 36.579539892315225,
+          "demand_vs_naive": 0.4793084542270267
+        },
+        "8": {
+          "mean": 26.69081697540838,
+          "std_over_layers": 3.4832552401020203,
+          "min_layer": 21.508084272415484,
+          "max_layer": 43.67515923566879,
+          "demand_vs_naive": 0.41704401524075596
+        }
+      },
+      "lag1": {
+        "reuse": 0.47859607729006626,
+        "chance": 0.2559194412637264,
+        "ratio": 1.8701044161661418,
+        "jaccard": 0.3406958262824138
+      },
+      "G2b_U4_le_16": false
+    },
+    "general": {
+      "path": "measurements/traces/general.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          94,
+          2048,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 6146,
+        "count_max": 21277,
+        "count_std": 3164.230904777652,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.297960689748361,
+          "std_over_layers": 0.562456643261572,
+          "min_layer": 11.448461162677088,
+          "max_layer": 14.828529555446996,
+          "demand_vs_naive": 0.7686225431092726
+        },
+        "3": {
+          "mean": 15.828809716936005,
+          "std_over_layers": 1.1340668223259673,
+          "min_layer": 14.189149560117302,
+          "max_layer": 20.959433040078203,
+          "demand_vs_naive": 0.6595337382056669
+        },
+        "4": {
+          "mean": 18.86505228112157,
+          "std_over_layers": 1.6646017887108717,
+          "min_layer": 16.540342298288508,
+          "max_layer": 26.449877750611247,
+          "demand_vs_naive": 0.5895328837850491
+        },
+        "6": {
+          "mean": 23.973198571145893,
+          "std_over_layers": 2.590725452883474,
+          "min_layer": 20.49290259422418,
+          "max_layer": 35.97307880567792,
+          "demand_vs_naive": 0.4994416368988728
+        },
+        "8": {
+          "mean": 28.239103693433552,
+          "std_over_layers": 3.3560185381182235,
+          "min_layer": 23.70749632533072,
+          "max_layer": 43.9015188633023,
+          "demand_vs_naive": 0.44123599520989926
+        }
+      },
+      "lag1": {
+        "reuse": 0.4627549137814549,
+        "chance": 0.203497976064682,
+        "ratio": 2.274002536685514,
+        "jaccard": 0.3264050211217316
+      },
+      "G2b_U4_le_16": false
+    },
+    "math": {
+      "path": "measurements/traces/math.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          94,
+          2048,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 6503,
+        "count_max": 20354,
+        "count_std": 2910.1328765839885,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.75041836002869,
+          "std_over_layers": 0.45594080892260747,
+          "min_layer": 11.881289692232535,
+          "max_layer": 14.794821690278456,
+          "demand_vs_naive": 0.7969011475017931
+        },
+        "3": {
+          "mean": 16.66687464902976,
+          "std_over_layers": 0.892140106369746,
+          "min_layer": 15.103616813294233,
+          "max_layer": 20.69208211143695,
+          "demand_vs_naive": 0.69445311037624
+        },
+        "4": {
+          "mean": 20.00345419549498,
+          "std_over_layers": 1.2815310871012873,
+          "min_layer": 17.76723716381418,
+          "max_layer": 25.871882640586797,
+          "demand_vs_naive": 0.6251079436092182
+        },
+        "6": {
+          "mean": 25.593594109621844,
+          "std_over_layers": 1.9478583708195918,
+          "min_layer": 22.188448360254526,
+          "max_layer": 34.58835046500245,
+          "demand_vs_naive": 0.5331998772837884
+        },
+        "8": {
+          "mean": 30.248412855608958,
+          "std_over_layers": 2.489858905865366,
+          "min_layer": 25.900538951494365,
+          "max_layer": 41.78637922586967,
+          "demand_vs_naive": 0.47263145086888997
+        }
+      },
+      "lag1": {
+        "reuse": 0.40619770499641394,
+        "chance": 0.18573822683476388,
+        "ratio": 2.186936485389057,
+        "jaccard": 0.27689141162308956
+      },
+      "G2b_U4_le_16": false
+    },
+    "medical": {
+      "path": "measurements/traces/medical.npz",
+      "meta": {
+        "model": "Qwen3-235B-A22B-Q4_K_M",
+        "top_k": 8,
+        "k": 8,
+        "num_experts": 128,
+        "n_moe_layers": 94,
+        "source": "llama-moe-trace eval-callback (GGUF, weights untouched)"
+      },
+      "sanity": {
+        "shape": [
+          94,
+          2048,
+          8
+        ],
+        "id_min": 0,
+        "id_max": 127,
+        "n_out_of_range": 0,
+        "n_unique_ids": 128,
+        "count_min": 4935,
+        "count_max": 21868,
+        "count_std": 3385.933641552947,
+        "uniform_8x_bug": false
+      },
+      "U(k)": {
+        "1": {
+          "mean": 8.0,
+          "std_over_layers": 0.0,
+          "min_layer": 8.0,
+          "max_layer": 8.0,
+          "demand_vs_naive": 1.0
+        },
+        "2": {
+          "mean": 12.329802825099526,
+          "std_over_layers": 0.5962206356278806,
+          "min_layer": 11.510014655593551,
+          "max_layer": 15.172447484123108,
+          "demand_vs_naive": 0.7706126765687203
+        },
+        "3": {
+          "mean": 15.79335912314636,
+          "std_over_layers": 1.1980497983471874,
+          "min_layer": 14.177908113391984,
+          "max_layer": 21.444281524926687,
+          "demand_vs_naive": 0.6580566301310983
+        },
+        "4": {
+          "mean": 18.708162097487385,
+          "std_over_layers": 1.7450633165524922,
+          "min_layer": 16.3960880195599,
+          "max_layer": 26.94327628361858,
+          "demand_vs_naive": 0.5846300655464808
+        },
+        "6": {
+          "mean": 23.53718978140199,
+          "std_over_layers": 2.6772163511706,
+          "min_layer": 20.051884483602546,
+          "max_layer": 36.10523739598629,
+          "demand_vs_naive": 0.49035812044587485
+        },
+        "8": {
+          "mean": 27.529162800879835,
+          "std_over_layers": 3.450836939535894,
+          "min_layer": 23.03674669279765,
+          "max_layer": 43.571288584027435,
+          "demand_vs_naive": 0.4301431687637474
+        }
+      },
+      "lag1": {
+        "reuse": 0.45877464686255964,
+        "chance": 0.23568380322862179,
+        "ratio": 1.9465684131782772,
+        "jaccard": 0.3225619748148825
+      },
+      "G2b_U4_le_16": false
+    }
+  },
+  "pooled": {
+    "U4_mean_over_domains": 18.981046142641627,
+    "G2b_U4_le_16": false,
+    "note": "Qwen3-235B-A22B Q4_K_M, 2048 tok x 4 domains. G2b U(4)<=16 fails. Do not mix with 30B npz."
+  }
+}

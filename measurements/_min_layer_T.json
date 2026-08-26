@@ -1,0 +1,143 @@
+{
+  "k_max": 2,
+  "by_umax": {
+    "8": {
+      "domains": {
+        "code": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.003700277520814,
+          "engine_min_layer_mean_T": 1.0,
+          "p_engine_T_ge_2": 0.0,
+          "mean_overflow_layers": 93.65217391304348,
+          "p50_overflow_layers": 94.0
+        },
+        "general": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.002645282665863,
+          "engine_min_layer_mean_T": 1.0,
+          "p_engine_T_ge_2": 0.0,
+          "mean_overflow_layers": 93.75134342940889,
+          "p50_overflow_layers": 94.0
+        },
+        "math": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.0012420875385881,
+          "engine_min_layer_mean_T": 1.0,
+          "p_engine_T_ge_2": 0.0,
+          "mean_overflow_layers": 93.88324377137275,
+          "p50_overflow_layers": 94.0
+        },
+        "medical": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.002915527653338,
+          "engine_min_layer_mean_T": 1.0,
+          "p_engine_T_ge_2": 0.0,
+          "mean_overflow_layers": 93.72594040058623,
+          "p50_overflow_layers": 94.0
+        }
+      },
+      "pooled": {
+        "F4_style_mean_T": 1.0026257938446508,
+        "engine_min_layer_mean_T": 1.0,
+        "p_engine_T_ge_2": 0.0,
+        "mean_overflow_layers": 93.75317537860285
+      }
+    },
+    "12": {
+      "domains": {
+        "code": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.5964254903387418,
+          "engine_min_layer_mean_T": 1.0,
+          "p_engine_T_ge_2": 0.0,
+          "mean_overflow_layers": 37.93600390815828,
+          "p50_overflow_layers": 35.0
+        },
+        "general": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.5677639306094027,
+          "engine_min_layer_mean_T": 1.0024425989252566,
+          "p_engine_T_ge_2": 0.002442598925256473,
+          "mean_overflow_layers": 40.63019052271617,
+          "p50_overflow_layers": 37.0
+        },
+        "math": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.4508517914124457,
+          "engine_min_layer_mean_T": 1.0,
+          "p_engine_T_ge_2": 0.0,
+          "mean_overflow_layers": 51.61993160723009,
+          "p50_overflow_layers": 53.0
+        },
+        "medical": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 1.5570112983192839,
+          "engine_min_layer_mean_T": 1.0024425989252566,
+          "p_engine_T_ge_2": 0.002442598925256473,
+          "mean_overflow_layers": 41.6409379579873,
+          "p50_overflow_layers": 39.0
+        }
+      },
+      "pooled": {
+        "F4_style_mean_T": 1.5430131276699686,
+        "engine_min_layer_mean_T": 1.0012212994626282,
+        "p_engine_T_ge_2": 0.0012212994626282364,
+        "mean_overflow_layers": 42.956765999022956
+      }
+    },
+    "16": {
+      "domains": {
+        "code": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 2.0,
+          "engine_min_layer_mean_T": 2.0,
+          "p_engine_T_ge_2": 1.0,
+          "mean_overflow_layers": 0.0,
+          "p50_overflow_layers": 0.0
+        },
+        "general": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 2.0,
+          "engine_min_layer_mean_T": 2.0,
+          "p_engine_T_ge_2": 1.0,
+          "mean_overflow_layers": 0.0,
+          "p50_overflow_layers": 0.0
+        },
+        "math": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 2.0,
+          "engine_min_layer_mean_T": 2.0,
+          "p_engine_T_ge_2": 1.0,
+          "mean_overflow_layers": 0.0,
+          "p50_overflow_layers": 0.0
+        },
+        "medical": {
+          "n_windows": 2047,
+          "n_layers": 94,
+          "F4_style_mean_T": 2.0,
+          "engine_min_layer_mean_T": 2.0,
+          "p_engine_T_ge_2": 1.0,
+          "mean_overflow_layers": 0.0,
+          "p50_overflow_layers": 0.0
+        }
+      },
+      "pooled": {
+        "F4_style_mean_T": 2.0,
+        "engine_min_layer_mean_T": 2.0,
+        "p_engine_T_ge_2": 1.0,
+        "mean_overflow_layers": 0.0
+      }
+    }
+  }
+}
