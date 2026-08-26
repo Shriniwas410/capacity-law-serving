@@ -2,8 +2,11 @@
 """Apply serial-wave fallback when n_slots < 3*n_expert_used."""
 from pathlib import Path
 
-GRAPH = Path("/home/shri/src/llama.cpp/src/llama-graph.cpp")
-CTX = Path("/home/shri/src/llama.cpp/src/llama-context.cpp")
+from _llama_root import llama_root
+
+ROOT = llama_root()
+GRAPH = ROOT / "src/llama-graph.cpp"
+CTX = ROOT / "src/llama-context.cpp"
 
 OLD_GRAPH = """        if (n_touch_max > msl->n_slots) {
             // the cache must hold three sets at once: this wave's experts, the next wave's preloaded

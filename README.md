@@ -8,7 +8,8 @@ llama.cpp on one Windows/WSL2 box (RTX 3070 left idle).
 This is **Paper 2**, not [Cacheable by Design?](https://github.com/Shriniwas410/cacheable-by-design)
 (arXiv:2608.18261, 137M router training). Do not mix those tok/s tables.
 
-📄 Paper: [`paper/paper.pdf`](paper/paper.pdf) · Results: [`RESULTS.md`](RESULTS.md)
+📄 Paper: [`paper/paper.pdf`](paper/paper.pdf) · Results: [`RESULTS.md`](RESULTS.md) ·
+Cite: [`CITATION.cff`](CITATION.cff)
 
 ## TL;DR
 
@@ -27,7 +28,7 @@ buffer. Stream-direct decode is **0.29 tok/s** (8-slot) and **0.38 tok/s**
 | `RESULTS.md` | Measured findings F1–F15 with provenance |
 | `measurements/` | Verdicts, configs, fio TSV, union JSON, prefetch sim |
 | `measurements/traces/` | Four domain `.npz` traces (94×2048×8) |
-| `engine/patches/` | llama.cpp patches on `1248fd8fa` (serial waves, skip-empty GEMM, umax v1) |
+| `engine/patches/` | llama.cpp patches on `1248fd8fa` (serial waves, skip-empty GEMM, umax v1). Set `LLAMA_CPP` |
 | `llama-moe-trace/` | Router-telemetry add-on (weights untouched) |
 | `paper/` | LaTeX, bibliography, `verify_refs.py` |
 
@@ -43,7 +44,10 @@ python paper/verify_refs.py             # 0 HARD vs local PDF corpus (PDFs not i
 ```
 
 Decode timings need Qwen3-235B-A22B Q4_K_M GGUF, Qwen3-0.6B-Q8_0, and llama.cpp
-`1248fd8fa` (PR#25294 stream-direct) plus `engine/patches/`. CPU only (`-ngl 0`).
+`1248fd8fa` (PR#25294 stream-direct) plus `engine/patches/` with
+`LLAMA_CPP=/path/to/llama.cpp`. CPU only (`-ngl 0`). Shell helpers under
+`measurements/*.sh` still use this lab's WSL paths (`/home/shri/src/llama.cpp`,
+GGUF under `/home/shri/models/`); rewrite those or export the same layout.
 Never load 235B on an 8 GB GPU while other training holds VRAM.
 
 ## What is NOT in the repo (and why)
@@ -70,7 +74,8 @@ number has a file.
 ## Citation
 
 Companion training paper: [arXiv:2608.18261](https://arxiv.org/abs/2608.18261).
-This measurement preprint has no arXiv id yet.
+This measurement preprint has no arXiv id yet. GitHub citation metadata is
+in [`CITATION.cff`](CITATION.cff).
 
 Author: Shriniwas Ramesh Suram
 ([ORCID 0009-0009-0452-9407](https://orcid.org/0009-0009-0452-9407)).

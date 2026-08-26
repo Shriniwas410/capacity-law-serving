@@ -16,14 +16,71 @@ from __future__ import annotations
 import argparse
 import glob
 import json
+import math
 import os
 import sys
 import time
 
 import numpy as np
 
-sys.path.insert(0, "/mnt/c/Users/shrin/Desktop/AI/sticky-moe")
-from analyze import miss_per_tok
+
+def miss_per_tok(experts, cap_frac, policy, n_experts=None, lookahead=None):
+    """Demand misses per token summed over layers. Copied from Cacheable by
+    Design `analyze.py` so this repo does not import sticky-moe."""
+    L, T, k = experts.shape
+    total_miss = 0.0
+    for l in range(L):
+        seq = experts[l]
+        n_exp = n_experts if n_experts is not None else int(seq.max()) + 1
+        cap = max(1, int(round(cap_frac * max(n_exp, k))))
+        if policy == "static":
+            vals, counts = np.unique(seq, return_counts=True)
+            resident = set(vals[np.argsort(-counts)[:cap]].tolist())
+            for t in range(T):
+                for e in seq[t]:
+                    if e not in resident:
+                        total_miss += 1
+        elif policy == "lru":
+            resident = []
+            for t in range(T):
+                for e in seq[t]:
+                    e = int(e)
+                    if e in resident:
+                        resident.remove(e)
+                    else:
+                        total_miss += 1
+                        if len(resident) >= cap:
+                            resident.pop(0)
+                    resident.append(e)
+        elif policy == "belady":
+            positions = {}
+            for t in range(T):
+                for e in seq[t]:
+                    positions.setdefault(int(e), []).append(t)
+            resident = set()
+            ptr = {e: 0 for e in positions}
+            for t in range(T):
+                for e in seq[t]:
+                    e = int(e)
+                    if e in resident:
+                        continue
+                    total_miss += 1
+                    if len(resident) >= cap:
+                        def next_use(x):
+                            arr = positions[x]
+                            i = ptr[x]
+                            while i < len(arr) and arr[i] <= t:
+                                i += 1
+                            nu = arr[i] if i < len(arr) else math.inf
+                            if lookahead is not None and nu > t + lookahead:
+                                nu = math.inf
+                            return nu
+                        victim = max(resident, key=next_use)
+                        resident.discard(victim)
+                    resident.add(e)
+                for e in seq[t]:
+                    ptr[int(e)] += 1
+    return total_miss / T
 
 CAPS = (0.0625, 12 / 128, 0.125, 0.25)  # 8, 12, 16, 32 experts
 LOADS_PER_TOK = None  # set from shape

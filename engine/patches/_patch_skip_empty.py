@@ -2,10 +2,13 @@
 """Empty-wave GEMM skip: ggml flag + wave_ids/wave_mask + mul_mat_id early-out."""
 from pathlib import Path
 
-GGML_H = Path("/home/shri/src/llama.cpp/ggml/include/ggml.h")
-GGML_C = Path("/home/shri/src/llama.cpp/ggml/src/ggml.c")
-CPU_C = Path("/home/shri/src/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.c")
-MOE = Path("/home/shri/src/llama.cpp/src/llama-moe-stream.cpp")
+from _llama_root import llama_root
+
+ROOT = llama_root()
+GGML_H = ROOT / "ggml/include/ggml.h"
+GGML_C = ROOT / "ggml/src/ggml.c"
+CPU_C = ROOT / "ggml/src/ggml-cpu/ggml-cpu.c"
+MOE = ROOT / "src/llama-moe-stream.cpp"
 
 h = GGML_H.read_text()
 old = """    GGML_API void ggml_set_input(struct ggml_tensor * tensor);

@@ -7,16 +7,19 @@ Opt-in: --moe-stream-umax, enabled only on spec-verify batches (not prefill).
 """
 from pathlib import Path
 
-MOE_H = Path("/home/shri/src/llama.cpp/src/llama-moe-stream.h")
-MOE_C = Path("/home/shri/src/llama.cpp/src/llama-moe-stream.cpp")
-LLAMA_H = Path("/home/shri/src/llama.cpp/include/llama.h")
-MODEL_C = Path("/home/shri/src/llama.cpp/src/llama-model.cpp")
-CTX_C = Path("/home/shri/src/llama.cpp/src/llama-context.cpp")
-ARG = Path("/home/shri/src/llama.cpp/common/arg.cpp")
-COMMON_H = Path("/home/shri/src/llama.cpp/common/common.h")
-SAMP_H = Path("/home/shri/src/llama.cpp/common/sampling.h")
-SAMP_C = Path("/home/shri/src/llama.cpp/common/sampling.cpp")
-SRV = Path("/home/shri/src/llama.cpp/tools/server/server-context.cpp")
+from _llama_root import llama_root
+
+ROOT = llama_root()
+MOE_H = ROOT / "src/llama-moe-stream.h"
+MOE_C = ROOT / "src/llama-moe-stream.cpp"
+LLAMA_H = ROOT / "include/llama.h"
+MODEL_C = ROOT / "src/llama-model.cpp"
+CTX_C = ROOT / "src/llama-context.cpp"
+ARG = ROOT / "common/arg.cpp"
+COMMON_H = ROOT / "common/common.h"
+SAMP_H = ROOT / "common/sampling.h"
+SAMP_C = ROOT / "common/sampling.cpp"
+SRV = ROOT / "tools/server/server-context.cpp"
 
 
 def must_replace(path: Path, old: str, new: str, label: str) -> None:

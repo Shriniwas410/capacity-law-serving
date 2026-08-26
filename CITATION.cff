@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Capacity-Law Serving of a 235B Mixture-of-Experts Model on 32 GB Host Memory"
+authors:
+  - family-names: "Suram"
+    given-names: "Shriniwas Ramesh"
+    orcid: "https://orcid.org/0009-0009-0452-9407"
+version: 1.0.0
+date-released: 2026-08-26
+url: "https://github.com/Shriniwas410/capacity-law-serving"
+repository-code: "https://github.com/Shriniwas410/capacity-law-serving"
+license: MIT
+preferred-citation:
+  type: article
+  title: "Capacity-Law Serving of a 235B Mixture-of-Experts Model on 32 GB Host Memory"
+  authors:
+    - family-names: "Suram"
+      given-names: "Shriniwas Ramesh"
+      orcid: "https://orcid.org/0009-0009-0452-9407"
+  year: 2026
+  url: "https://github.com/Shriniwas410/capacity-law-serving"

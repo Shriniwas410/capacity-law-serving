@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 from pathlib import Path
-p = Path("/home/shri/src/llama.cpp/src/llama-moe-stream.cpp")
+
+from _llama_root import llama_root
+
+p = llama_root() / "src/llama-moe-stream.cpp"
 t = p.read_text()
 inc = """#include <algorithm>
 #include <cinttypes>
