@@ -9,7 +9,8 @@ This is **Paper 2**, not [Cacheable by Design?](https://github.com/Shriniwas410/
 (arXiv:2608.18261, 137M router training). Do not mix those tok/s tables.
 
 📄 Paper: [`paper/paper.pdf`](paper/paper.pdf) · Results: [`RESULTS.md`](RESULTS.md) ·
-Cite: [`CITATION.cff`](CITATION.cff)
+Cite: [`CITATION.cff`](CITATION.cff) ·
+**Interactive explainer (GitHub Pages):** [capacity-law plots](https://shriniwas410.github.io/capacity-law-serving/)
 
 ## TL;DR
 
@@ -21,6 +22,15 @@ buffer. Stream-direct decode is **0.29 tok/s** (8-slot) and **0.38 tok/s**
 `--moe-stream-umax` v1 **lost** (α=0). Per-layer-mean HorizonSpec T=1.54 is
 **not** engine min T=1.001.
 
+```mermaid
+flowchart TD
+  table["133 GB Q4_K_M table on NVMe"] --> stream["12-slot CPU stream ~12 GB experts"]
+  stream --> q{"U(k) ≤ slots?"}
+  q -->|"U(4)=18.98 · 8-slot T=1.003"| no["extra I/O waves"]
+  q -->|"engine min T=1.001 at 12 slots"| spec["stock spec: high α, 0.80× then ~parity"]
+  no --> spec
+```
+
 ## Repository layout
 
 | Path | What |
@@ -30,6 +40,7 @@ buffer. Stream-direct decode is **0.29 tok/s** (8-slot) and **0.38 tok/s**
 | `measurements/traces/` | Four domain `.npz` traces (94×2048×8) |
 | `engine/patches/` | llama.cpp patches on `1248fd8fa` (serial waves, skip-empty GEMM, umax v1). Set `LLAMA_CPP` |
 | `llama-moe-trace/` | Router-telemetry add-on (weights untouched) |
+| `docs/` | GitHub Pages explainer: slot-budget slider, U(k), engine-min T, spec ladder |
 | `paper/` | LaTeX, bibliography, `verify_refs.py` |
 
 Paper appendix tables point at files under `measurements/` (this used to be a local `week1/` dump).
