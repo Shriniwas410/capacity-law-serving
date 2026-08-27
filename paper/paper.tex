@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
-% Capacity-law serving (Paper 2). Compile: tectonic paper.tex
-% Companion training paper: Cacheable by Design (arXiv 2608.18261), cited as suram2026cacheable.
+% Paper A --- measurement. Compile: tectonic paper.tex
+% Speculation/engine follow-on is not this PDF (umax v2 first).
+% Separate from paper/paper.tex (training-time locality, arXiv 2608.18261).
 % Every decode number traces to measurements/*verdict.json.
 % Do not cite 0.44 tok/s as this CPU stream stack.
 \usepackage[margin=1in]{geometry}
@@ -26,7 +27,7 @@
 
 \title{\textbf{Capacity-Law Serving of a 235B Mixture-of-Experts Model\\
 on 32\,GB Host Memory}\\[4pt]
-\large Routing Traces, Union Demand, and Why Stock Speculation Loses on a Consumer SSD}
+\large Routing Traces and Union Demand on a Consumer SSD}
 \author{Shriniwas Ramesh Suram\thanks{ORCID: \href{https://orcid.org/0009-0009-0452-9407}{0009-0009-0452-9407}. Work conducted independently on personal hardware (RTX 3070 left idle).}\\
 University of Cumberlands, Williamsburg, USA\\
 \texttt{ssuram36954@ucumberlands.edu}}
@@ -50,18 +51,12 @@ We release 94-layer top-8 routing traces ($4\times 2048$ tokens). Mean unique
 experts over a 4-token window is $U(4)=18.98$, so mean unique demand exceeds
 16 slots (naive $k{=}4$ still fits 23\% of 16-slot windows).
 Identical lag-1 expert \emph{sets} occur 0.26\% of the time; an 8-slot
-admission cap has mean admitted length $T{=}1.003$. A 0.6B same-family draft is
-accepted at $\alpha=0.75$--$0.79$ on a 16-token smoke, but stock llama.cpp
-verify with \texttt{-ub 1} \emph{slows} that \texttt{llama-cli} 12-slot run to
-$0.80\times$ (baseline 0.30\,\tps{}, not the 0.38\,\tps{}
-\texttt{llama-completion} greedy). Serial expert waves at 12 slots make
-multi-token verify legal without $3\,n_{\mathrm{expert\_used}}{=}24$ resident
-slots; batched verify (\texttt{-ub 8}) returns wall-clock to $\approx 1.0\times$.
-Causal lag-2 prefetch recovers 0\% of the LRU--OPT gap on these traces. A local
-\texttt{--moe-stream-umax} v1 ran on this box and \emph{lost} ($\alpha{=}0$,
-$0.79\times$/$0.73\times$); we do not cite it as a HorizonSpec speedup.
-Trace-oracle $U_{\max}$ (Table~\ref{tab:hs}) remains a simulation, not that
-engine result.
+admission cap has mean admitted length $T{=}1.003$. Causal lag-2 prefetch
+recovers 0\% of the LRU--OPT gap on these traces. Per-layer-mean oracle
+admission at 12 slots gives $T{=}1.54$ for $k{=}2$; the engine-relevant
+aggregate is the \emph{minimum} over 94 layers, $T{=}1.001$
+($p(T{\ge}2){=}0.12\%$). This paper measures that geometry. Engine work that
+tries to speculate under the law is a separate manuscript.
 \end{abstract}
 
 \section{Introduction}
@@ -79,10 +74,11 @@ Qwen3-235B table on 21\,Gi of WSL RAM.
 
 This paper is a \emph{measurement} study of that geometry. Direct I/O streaming
 of expert slabs is the substrate (llama.cpp PR\#25294); we do not claim it as a
-novelty. Speculative decoding \citep{leviathan2023speculative} supplies lookahead
-that greedy prefetch cannot. The systems question is whether the \emph{union}
-of experts over a draft prefix fits in a RAM-sized slot budget---a
-\emph{capacity law}, not a bandwidth slogan.
+novelty. The systems question we can answer now is how many \emph{unique}
+experts a $k$-token window demands, and whether that union fits in a RAM-sized
+slot budget---a \emph{capacity law}, not a bandwidth slogan. Speculative
+decoding \citep{leviathan2023speculative} is why the union matters: verify is
+cheap only if $U(k)\le s$. We do not report a speculation speedup here.
 
 \paragraph{Contributions.}
 \begin{enumerate}\itemsep2pt
@@ -90,10 +86,9 @@ of experts over a draft prefix fits in a RAM-sized slot budget---a
 impossible; 8-slot stream-direct 0.29\,\tps{}; 12-slot 0.38\,\tps{} at 16.70\,GiB RSS.
 \item \textbf{235B routing traces} of shape $(94,2048,8)$ on four domains, and the
 union law $U(k)$ that falsifies ``just speculate with $k{=}4$.''
-\item \textbf{Paired speculation:} high $\alpha$, negative wall-clock at
-\texttt{-ub 1}, parity after serial-wave batched verify.
-\item \textbf{Negatives:} $U(4)\le 16$ fails; causal prefetch recovery $W{=}0$;
-8-slot HorizonSpec mean admitted length $T{=}1.003$.
+\item \textbf{Negatives on the traces:} $U(4)\le 16$ fails; causal prefetch
+recovery $W{=}0$; 8-slot HorizonSpec mean admitted length $T{=}1.003$;
+engine-min $T{=}1.001$ at 12 slots $k{=}2$.
 \end{enumerate}
 
 A 0.44\,\tps{} figure from Windows \texttt{llama-server -ngl 99 -ncmoe 94}
@@ -119,32 +114,16 @@ runs OPT-175B on a single 16\,GB GPU at 1\,\tps{} generation \emph{throughput}
 from the current block's gate \citep{hwang2023pregated}. None of these papers
 report Qwen3-235B-A22B top-8 unions on a 12-slot, 21\,Gi CPU stream cache.
 
-\paragraph{Speculative decoding.}
-A small draft proposes tokens; the target verifies a prefix in parallel with a
-sampling scheme that leaves the target distribution unchanged, giving
-2$\times$--3$\times$ wall-time acceleration on T5-XXL
-\citep{leviathan2023speculative}. Medusa and EAGLE change how drafts are
-proposed, not the verify contract \citep{cai2024medusa,li2024eagle}. On an MoE
-whose experts live on SSD, verify is cheap only if the \emph{union} of experts
-over the prefix fits in the expert cache. That is the gap this paper measures.
-
 \paragraph{Capacity law.}
 Let $s$ be the number of expert slots per MoE layer that fit in RAM, $k$ the
-draft length, and $U(k)$ the number of unique experts in a $k$-token window at
-one layer. Greedy decode always loads $U(1)=\mathrm{top}\text{-}8=8$ experts per
-layer. A $k$-token verify is one I/O generation only if $U(k)\le s$. If the
-engine instead instantiates a worst-case graph of $k\times 8$ experts, extra
-waves pay compute and I/O even when the realized union is small.
-Admission-time $U_{\max}{=}s$ truncates the draft so the union fits. On traces
-we simulate longest-prefix admission with \emph{target} routing (an upper
-bound). A local engine v1 (\texttt{--moe-stream-umax}) truncated the
-sampled+draft ubatch to $T{=}1$ (log: admitting $1/3$ and $1/5$, uniq${=}8$).
-That layout is expected for greedy-only union. Draft $\alpha$ also collapsed to
-0: row-0 logits disagreed with F10b (not ``T=1 dropped draft[0]''---the sampler
-still compares draft[0] at $T{=}1$). Empty-wave \texttt{skip\_mul\_mat\_id} under
-$\mathrm{plan\_n\_waves}{=}1$ is the leading unmeasured mechanism. The run is
-not a bit-exact A/B, not F4, and not a tok/s win. The F4 table is still
-per-layer-mean oracle routing.
+lookahead window, and $U(k)$ the number of unique experts in a $k$-token window
+at one layer. Greedy decode always loads $U(1)=\mathrm{top}\text{-}8=8$ experts per
+layer. A $k$-token step is one I/O generation only if $U(k)\le s$. If an engine
+instead instantiates a worst-case graph of $k\times 8$ experts, extra waves pay
+compute and I/O even when the realized union is small.
+Admission-time $U_{\max}{=}s$ would truncate a prefix so the union fits. On
+traces we simulate longest-prefix admission with \emph{target} routing (an upper
+bound on sharing). That table is not tok/s.
 
 \section{Setup}
 \label{sec:setup}
@@ -153,13 +132,8 @@ per-layer-mean oracle routing.
 Windows 11 + WSL2 Ubuntu, Intel i9-12900 (16C/24T), RTX 3070 8\,GB idle,
 $\sim$32\,GB host RAM, \texttt{.wslconfig} 22\,GB (WSL \texttt{free}
 $\approx$ 21\,Gi), NVMe. llama.cpp branch \texttt{pr-25294}, git
-\texttt{1248fd8fa}, \texttt{GGML\_CUDA=OFF}. Local patches on that commit:
-serial expert waves when $n_{\mathrm{slots}}<3\,n_{\mathrm{expert\_used}}=24$
-(top-8, not draft length), ordered-wave waits (an
-OpenMP assert otherwise hangs), no next-wave pin when the cache is already
-full, and optional \texttt{--moe-stream-umax} (measured lose; not in
-Table~\ref{tab:spec}). Model: \texttt{Qwen3-235B-A22B-Q4\_K\_M} (3-way split, 133\,GB) and draft
-\texttt{Qwen3-0.6B-Q8\_0} (768\,MB, dense) on ext4. Expert cache
+\texttt{1248fd8fa}, \texttt{GGML\_CUDA=OFF}. Model:
+\texttt{Qwen3-235B-A22B-Q4\_K\_M} (3-way split, 133\,GB) on ext4. Expert cache
 \texttt{--moe-stream-direct --moe-stream-cache \{8s,12s\}}. Context 512,
 temperature 0, seed 1. Every headline number has a \texttt{config.json} /
 \texttt{verdict.json} under \texttt{measurements/} (Appendix~\ref{app:prov}).
@@ -251,7 +225,7 @@ $k{=}4$ still fits 23\% of 16-slot windows.}
 Union sharing is real ($U(4)/32\approx 0.59$) but the union is larger than 16.
 Code $U(2)=12.17$: mean unique experts over two tokens \emph{exceeds} 12
 slots. Naive $k{=}2$ fits 54\% of 12-slot windows \emph{per layer} (mean over
-layers), not a 4-token union and not engine $\min$ over 94 layers.
+layers), not a 4-token union and not the minimum over 94 layers.
 
 \section{HorizonSpec is a slot count}
 \label{sec:hs}
@@ -282,104 +256,27 @@ cap & naive $k{=}2$ fit & HSpec $k{=}2$ $T$ & naive $k{=}4$ fit & HSpec $k{=}4$ 
 \end{table}
 
 At 12 slots, naive $k{=}2$ fits 54\% of windows and HorizonSpec mean $T$ is
-1.54 \emph{per layer}. The engine takes $\min$ admitted length over 94 layers
-(\texttt{measurements/\_min\_layer\_T.json}): pooled engine $T{=}1.001$,
+1.54 \emph{per layer}. Taking $\min$ admitted length over 94 layers
+(\texttt{measurements/\_min\_layer\_T.json}) gives pooled $T{=}1.001$,
 $p(T{\ge}2){=}0.12\%$, $\approx$43 overflow layers per window. A global
-$U{\le}12$ gate therefore repeats $T{=}1$. Naive $k{=}4$ fits 1.2\%: stock
-$k{=}4$ verify still wants $\sim$19 unique experts. That is why ``just set draft
-$k{=}4$'' is the wrong lever, and why 8-slot speculation is a no-op on this
-model independent of draft quality.
+$U{\le}12$ gate therefore repeats $T{=}1$. Naive $k{=}4$ fits 1.2\% of 12-slot
+windows: a four-token union still wants $\sim$19 unique experts. That is why
+``just set draft $k{=}4$'' is the wrong lever on this router, independent of
+draft quality.
 
-\section{Decode and speculation}
+\section{Greedy CPU decode}
 \label{sec:decode}
 
-\paragraph{Greedy CPU decode}
-(\texttt{llama-completion}, $n{=}16$, prompt ``The capital of France is'',
-\texttt{-b 1 -ub 1}). 8-slot page-cache 0.26\,\tps{}; 8-slot \texttt{O\_DIRECT}
+\texttt{llama-completion}, $n{=}16$, prompt ``The capital of France is'',
+\texttt{-b 1 -ub 1}. 8-slot page-cache 0.26\,\tps{}; 8-slot \texttt{O\_DIRECT}
 0.29\,\tps{} (\texttt{measurements/ab235b\_verdict.json}). 12-slot \texttt{O\_DIRECT}
 (colder first arm) \textbf{0.38\,\tps{}}, RSS 16.70\,GiB
 (\texttt{measurements/ab235b\_12s\_verdict.json}). The same-day 8-slot rerun is warmer
 (0.30\,\tps{}) and is not averaged with the 12-slot number.
 
-\paragraph{Draft quality.}
-Qwen3-0.6B, \texttt{--spec-type draft-simple}. On 30B (not SSD-bound at 4\,GiB
-cache) $\alpha=0.857/0.833$ at $k{=}2/4$ and wall-clock $\approx 1.0\times$
-(\texttt{measurements/spec30b\_verdict.json}, 37 gen tokens). On 235B, 16 eval tokens,
-Fibonacci prompt: $\alpha=0.75$ ($k{=}2$, 9/12) and $0.79$ ($k{=}4$, 11/14).
-Same-family drafting works. $n{=}16$ is a smoke, not a 200-prompt gate.
-
-\paragraph{Wall-clock.}
-llama.cpp with \texttt{-ub 1} serializes verify. At 12 slots, that
-\emph{slows} 235B (Table~\ref{tab:spec}). Stock overlap waves require
-$n_{\mathrm{slots}}\ge 3\,n_{\mathrm{expert\_used}}{=}24$ (Metal parking; the
-factor is top-8, not draft length $k$). We run \emph{serial} waves
-with $\mathrm{cap}=n_{\mathrm{slots}}$ when that inequality fails, wait if
-wave custom-ops enter out of order, and do not pin the next wave's residents
-when $n_{\mathrm{slots}}$ already equals plan capacity (that deadlock appeared
-on the second 4-token ubatch). Prefill \texttt{-ub 4} then completes at
-0.28 prompt \tps{} vs 0.16 at \texttt{-ub 1} on 16 tokens
-(\texttt{llama-completion}, \texttt{-b 1 -ub 1} then \texttt{-b 8 -ub 4},
-second arm warmer; not the \texttt{llama-cli} 28-token prompt 0.44\,\tps{}).
-
-\begin{table}[t]\centering
-\caption{235B speculation, 12-slot stream-direct, $n{=}16$, seed 1.
-Eval tok/s from slot \texttt{print\_timing}
-(\texttt{spec235b\_verdict.json}, \texttt{spec235b\_ub8/verdict.json}).
-Two-decimal tok/s; eval-ms/tok \emph{speedup} vs this baseline is
-$0.951\times$ / $0.977\times$ (values ${<}1$ mean slower).}
-\label{tab:spec}
-\small
-\begin{tabular}{lcccc}
-\toprule
-arm & \texttt{-ub 1} eval \tps{} & \texttt{-ub 8} eval \tps{} & \texttt{-ub 8} ms/tok & $\alpha$ \\
-\midrule
-baseline     & 0.30 & 0.32 & 3089.56 & --- \\
-spec $k{=}2$ & 0.24 ($0.80\times$) & 0.31 ($0.97\times$) & 3248.57 & 0.75 \\
-spec $k{=}4$ & 0.23 ($0.77\times$) & 0.32 ($1.00\times$) & 3162.69 & 0.79 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-  ybar, bar width=9pt,
-  width=0.95\linewidth, height=5.0cm,
-  ylabel={eval speedup vs that arm's baseline},
-  ymin=0.6, ymax=1.15,
-  symbolic x coords={k2,k4},
-  xtick=data,
-  xticklabels={$k{=}2$,$k{=}4$},
-  legend style={font=\small, at={(0.02,0.98)}, anchor=north west, draw=none},
-  grid=major, grid style={gray!20},
-  nodes near coords, nodes near coords style={font=\scriptsize},
-]
-\addplot[fill=wall!70] coordinates {(k2,0.80) (k4,0.77)};
-\addlegendentry{\texttt{-ub 1}}
-\addplot[fill=ok!80] coordinates {(k2,0.97) (k4,1.00)};
-\addlegendentry{\texttt{-ub 8} serial waves}
-\draw[dashed] (axis cs:k2,1) -- (axis cs:k4,1);
-\end{axis}
-\end{tikzpicture}
-\caption{Stock \texttt{-ub 1} verify loses; serial-wave \texttt{-ub 8} returns
-near parity (2-decimal tok/s; $k{=}4$ eval-ms/tok \emph{speedup} is
-$0.977\times$, i.e.\ slightly slower). Neither bar is a HorizonSpec engine
-speedup.}
-\label{fig:spec}
-\end{figure}
-
-Batched verify \textbf{stops the $0.80\times$ tax}. It does \textbf{not} deliver
-the Table~\ref{tab:hs} \emph{per-layer-mean} $T\approx 1.54$ projection (engine
-$\min$ $T$ at 12 slots is 1.001): the graph is still sized for
-worst-case unique experts, Table~\ref{tab:spec} has no $U_{\max}$ (a later
-engine v1 admitted $T{=}1$ and lost $\alpha$), and $n{=}16$ is a smoke. Skipping compiled empty-wave expert GEMMs
-(\texttt{measurements/spec235b\_skip/verdict.json}) leaves $k{=}2$ eval at
-3251\,ms/tok vs 3249 without the skip; $k{=}4$ is 3039 vs 3163 on a later,
-warmer arm---we do not claim a skip speedup. Peak RSS 16.7--17.6\,GiB.
-\texttt{llama-cli -b 1} cannot greedy-decode this model (assert
-$n_{\mathrm{tokens}}\le n_{\mathrm{batch}}$ after skipping the fused-GDN
-probe); the working invocation is \texttt{-b 512 -ub \{1,8\}}.
+These rates are not interactive. They are the feasible CPU-stream ladder on
+this box. Lookahead (speculative decode, prefetch, admission) is constrained
+by $U(k)$ above; we do not table a speculation tok/s result in this manuscript.
 
 \section{Prefetch is not the lever}
 \label{sec:prefetch}
@@ -389,8 +286,8 @@ objective $=$ demand misses (\texttt{measurements/g2a\_235b.json}): at cap 16, l
 recovers 0\% of the LRU$\to$W8 gap; at caps 8 and 12 it \emph{raises} demand
 misses. Frequency pinning is worse than LRU at cap 16 (code 307 vs 280
 miss/tok). Non-causal oracle-next cuts demand misses $\sim$280$\to$23. That
-ceiling is what a draft can supply only if verify can hold the union---the
-case for admission-time $U_{\max}$, not for lag-1 prefetch.
+ceiling is what a draft can supply only if a later engine can hold the
+union---admission-time $U_{\max}$, not lag-1 prefetch.
 
 \begin{table}[t]\centering
 \caption{Demand misses per token (sum over 94 layers) at 16-expert cap.
@@ -412,17 +309,13 @@ medical  & 293.6 & 193.2 & 293.6 & 25.1 & 0.610 \\
 \section{Limitations}
 \label{sec:lim}
 
-All 235B decode numbers are one prompt length and one seed unless stated. We
-did not run 200-prompt $\alpha$. Table~\ref{tab:hs} is per-layer-mean oracle
-routing, not engine tok/s and not $\min$ over layers (that min is $T{=}1.001$
-at 12 slots $k{=}2$; \texttt{\_min\_layer\_T.json}). A \texttt{--moe-stream-umax} smoke admitted $T{=}1$ of a
-sampled+draft ubatch ($\alpha{=}0$, $0.79\times$/$0.73\times$;
-\texttt{spec235b\_umax/verdict.json}); we do not treat prefix FFN as
-bit-exact---that was unmeasured. 12-slot serial waves are CPU-only; Metal
-still wants 24 slots. We did not load 235B on the 8\,GB GPU. The 0.44\,\tps{}
-GPU-split figure is excluded. Empty-wave GEMM skip is a local tree change;
-Table~\ref{tab:spec} is the pre-skip \texttt{-ub 8} pair. The skip re-time does
-not move $k{=}2$ eval ms/tok.
+All 235B decode numbers are one prompt length and one seed unless stated.
+Table~\ref{tab:hs} is per-layer-mean oracle routing, not engine tok/s; the
+min-over-layers figure is $T{=}1.001$ at 12 slots $k{=}2$
+(\texttt{\_min\_layer\_T.json}). We did not load 235B on the 8\,GB GPU. The
+0.44\,\tps{} GPU-split figure is excluded. Speculation wall-clock
+($\alpha$, \texttt{-ub 1} slowdown, serial-wave parity, umax v1) is deferred
+to a companion engine manuscript and is not a claim of this paper.
 
 \section{Related work}
 \label{sec:rw}
@@ -434,49 +327,30 @@ Mixtral offload \citep{eliseev2023mixtraloffload}, MoE-Infinity
 \citep{xue2024moeinfinity}, Fiddler \citep{kamahori2025fiddler}, and pre-gated
 prefetch \citep{hwang2023pregated}. FlexGen studies offload scheduling
 \citep{sheng2023flexgen}. Speculative decoding verifies draft tokens in
-parallel \citep{leviathan2023speculative,cai2024medusa,li2024eagle}. SiDA-MoE
-predicts experts for throughput \citep{du2024sidamoe}. Concurrent MoE
-speculative-decoding papers also name the verify \emph{union}: MoE-Spec loads a
-fixed expert budget $B$ and drops the long tail
-\citep{mcdanel2026moespec}; AcceptMoE restricts eligible experts and states
-that this changes the model distribution \citep{liang2026acceptmoe}; EcoSpec
-selects draft paths by predicted expert cost without changing the target
-verifier, on Qwen3-235B-A22B with 8 H200 GPUs \citep{xie2026ecospec}; EVICT
-truncates the draft tree before verify (same 235B model, tensor-parallel 8 on
-A100) \citep{pan2026evict}. Those are GPU/HBM or expert-\emph{drop} levers. A
-12-slot CPU stream cannot use a global $U{\le}12$ gate (engine $\min$ $T{=}1.001$);
-the remaining exact-routing lever is prefix FFN plus overflow waves.
-The closest measurement ancestors remain Mixtral offload (2--3\,\tps{} on
-8$\times$7B, not 235B) and MoE-Infinity (expert-level traces on a GPU that holds
-the working set). Training-time router locality on 137M models is a companion
-negative result \citep{suram2026cacheable} and is not this paper's tok/s
-ladder. We contribute the 235B top-8 union law on a RAM slab that does
-\emph{not} hold the table, and the speculation negative-then-parity pair under
-that law.
+parallel \citep{leviathan2023speculative,cai2024medusa,li2024eagle}. Concurrent
+MoE-speculative papers name a verify \emph{union} on GPU/HBM or by dropping
+experts \citep{mcdanel2026moespec,liang2026acceptmoe,xie2026ecospec,pan2026evict}.
+Those levers are not a 12-slot CPU stream. Training-time router locality on
+137M models is a companion negative result \citep{suram2026cacheable} and is
+not this paper's tok/s ladder. We contribute the 235B top-8 union law on a RAM
+slab that does \emph{not} hold the table.
 
 \section{Conclusion}
 \label{sec:conc}
 
 On this box, 235B Q4\_K\_M serving is a 12-slot, $\approx$0.3--0.4\,\tps{} CPU
-stream. Speculation has the right $\alpha$ and the wrong verify granularity
-until multi-token ubatch is legal; serial waves restore parity, not a
-$1.5\times$ win. Per-layer-mean oracle $U_{\max}$ still says 54\% of 12-slot
-$k{=}2$ windows fit ($T{=}1.54$); engine $\min$ over 94 layers is $T{=}1.001$
-($p(T{\ge}2){=}0.12\%$). The engine v1 admitted one ubatch row and lost
-$\alpha$. The remaining lever is: never skip row-0 FFN, always FFN the first
-draft row (serial waves if $U(2){>}12$), and do not set global
-\texttt{skip\_mul\_mat\_id} under umax---not a global $U{\le}12$ gate. The
-publishable claims are
-the traces, the union law, the mmap/\texttt{O\_DIRECT} ladder, and the
-speculation negative-then-parity pair---not umax tok/s. We post this as a
-measurement preprint.
-It is not a TMLR resubmission of the companion training-time locality paper
-\citep{suram2026cacheable}.
+stream. The traces say why lookahead is hard: mean $U(4)=18.98$, 8-slot
+admitted length $T{=}1.003$, and engine-min $T{=}1.001$ at 12 slots $k{=}2$.
+Causal prefetch does not close the LRU--OPT gap. The publishable claims are
+the traces, the union law, the mmap/\texttt{O\_DIRECT} ladder, and those
+negatives---not a speculation speedup. We post this as a measurement
+preprint. It is not a TMLR resubmission of the companion training-time
+locality paper \citep{suram2026cacheable}.
 
 \paragraph{Reproducibility.}
 Scripts, verdicts, and traces live under \texttt{measurements/}
 (\url{https://github.com/Shriniwas410/capacity-law-serving}). llama.cpp
-\texttt{1248fd8fa} plus local serial-wave patches. CPU-only; GPU idle.
+\texttt{1248fd8fa}. CPU-only; GPU idle.
 Appendix~\ref{app:prov} lists the file for each headline number.
 
 \paragraph{Use of AI assistance.}
@@ -494,7 +368,7 @@ the listed artifacts.
 
 \begin{table}[h]\centering
 \caption{Headline numbers and the files that contain them. Do not overlay rows
-that differ in binary, prompt, \texttt{n\_ubatch}, or cache size.}
+that differ in binary, prompt, or cache size.}
 \label{tab:prov}
 \small
 \begin{tabular}{llp{5.2cm}}
@@ -510,12 +384,7 @@ engine $\min$ $T$ @ 12s $k{=}2$ & 1.001 & \texttt{\_min\_layer\_T.json} \\
 mmap OOM & 105\,496\,MB & \texttt{ab235b/mmap\_repack\_oom.stderr} \\
 8s O\_DIRECT greedy & 0.29\,\tps{} & \texttt{ab235b\_verdict.json} \\
 12s O\_DIRECT greedy & 0.38\,\tps{}, 16.70\,GiB & \texttt{ab235b\_12s\_verdict.json} \\
-spec \texttt{-ub 1} $k{=}2$ & 0.24\,\tps{}, $0.80\times$ & \texttt{spec235b\_verdict.json} \\
-spec \texttt{-ub 8} $k{=}4$ & 0.32\,\tps{}, $1.00\times$ tok/s ($0.977\times$ ms/tok) & \texttt{spec235b\_ub8/verdict.json} \\
-empty-wave skip $k{=}2$ & 3251 vs 3249\,ms/tok & \texttt{spec235b\_skip/verdict.json} \\
-umax v1 $k{=}2$ & 0.26\,\tps{}, $\alpha{=}0$, $0.79\times$ & \texttt{spec235b\_umax/verdict.json} \\
 lag-2 @ cap 16 & 0\% of LRU--W8 gap & \texttt{g2a\_235b.json} \\
-30B spec $\alpha$ & 0.86 / 0.83 & \texttt{spec30b\_verdict.json} \\
 \bottomrule
 \end{tabular}
 \end{table}

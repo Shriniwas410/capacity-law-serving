@@ -1,11 +1,12 @@
 # capacity-law-serving
 
-**Can stock speculative decoding speed up a 235B MoE on a 32 GB PC?**
-A measurement study: routing traces, the expert-union law, and why `-ub 1` loses
-then serial-wave `-ub 8` only returns to parity. All decode numbers are CPU-only
-llama.cpp on one Windows/WSL2 box (RTX 3070 left idle).
+**Does a 12-slot CPU stream fit a 235B MoE, and how large is the expert union?**
+Measurement preprint: routing traces, the expert-union law \(U(k)\), and greedy
+decode on one Windows/WSL2 box (RTX 3070 left idle). Speculation wall-clock is
+**not** this paper's claim (see `RESULTS.md` for the lab pair; engine follow-on
+waits on umax v2).
 
-This is **Paper 2**, not [Cacheable by Design?](https://github.com/Shriniwas410/cacheable-by-design)
+This is **Paper 2A** (measurement), not [Cacheable by Design?](https://github.com/Shriniwas410/cacheable-by-design)
 (arXiv:2608.18261, 137M router training). Do not mix those tok/s tables.
 
 📄 Paper: [`paper/paper.pdf`](paper/paper.pdf) · Results: [`RESULTS.md`](RESULTS.md) ·
@@ -17,10 +18,10 @@ Cite: [`CITATION.cff`](CITATION.cff) ·
 Qwen3-235B-A22B Q4_K_M is 133 GB. Full CPU mmap dies at a 105 GB `CPU_REPACK`
 buffer. Stream-direct decode is **0.29 tok/s** (8-slot) and **0.38 tok/s**
 (12-slot, 16.70 GiB RSS). Top-8 traces have shape `(94, 2048, 8)`; mean
-`U(4)=18.98`. A 0.6B draft has α **0.75–0.79** on a 16-token smoke, but
-`-ub 1` verify is **0.80×**; serial waves at `-ub 8` are ~parity, not 1.5×.
-`--moe-stream-umax` v1 **lost** (α=0). Per-layer-mean HorizonSpec T=1.54 is
-**not** engine min T=1.001.
+`U(4)=18.98`. Causal lag-2 prefetch recovers **0%** of the LRU–OPT gap.
+Per-layer-mean HorizonSpec T=1.54 is **not** engine min T=1.001. Speculation
+α / `-ub 1` / `-ub 8` numbers in `RESULTS.md` are lab notes for a follow-on
+engine paper, not claims in [`paper/paper.pdf`](paper/paper.pdf).
 
 ```mermaid
 flowchart TD
