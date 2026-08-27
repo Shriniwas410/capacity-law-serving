@@ -1,6 +1,8 @@
 \documentclass[11pt]{article}
 % Paper A --- measurement. Compile: tectonic paper.tex
-% Speculation/engine follow-on is not this PDF (umax v2 first).
+% Paper B (speculation/engine) is a local draft only --- not for arXiv until
+% 30B -v restores alpha and 235B beats F10b -ub 8 parity.
+% Paper B is not this paper.pdf.
 % Separate from paper/paper.tex (training-time locality, arXiv 2608.18261).
 % Every decode number traces to measurements/*verdict.json.
 % Do not cite 0.44 tok/s as this CPU stream stack.
@@ -35,6 +37,16 @@ University of Cumberlands, Williamsburg, USA\\
 
 \begin{document}
 \maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\linewidth}{\small\textbf{Scope.} This manuscript is the
+measurement paper: traces, $U(k)$, mmap/\texttt{O\_DIRECT}, greedy
+0.29/0.38\,\tps{}.
+Paper~B is a speculation/engine \emph{draft}. It is \textbf{not} for arXiv
+until a 30B \texttt{-v} smoke restores $\alpha$ and 235B 12-slot decode
+beats F10b \texttt{-ub 8} parity. Paper~B is \textbf{not} this repository's
+PDF (\url{https://github.com/Shriniwas410/capacity-law-serving/blob/main/paper/paper.pdf}).}}
+\end{center}
 
 \begin{abstract}
 Qwen3-235B-A22B stores 235B parameters and activates about 22B per token
@@ -313,9 +325,9 @@ All 235B decode numbers are one prompt length and one seed unless stated.
 Table~\ref{tab:hs} is per-layer-mean oracle routing, not engine tok/s; the
 min-over-layers figure is $T{=}1.001$ at 12 slots $k{=}2$
 (\texttt{\_min\_layer\_T.json}). We did not load 235B on the 8\,GB GPU. The
-0.44\,\tps{} GPU-split figure is excluded. Speculation wall-clock
-($\alpha$, \texttt{-ub 1} slowdown, serial-wave parity, umax v1) is deferred
-to a companion engine manuscript and is not a claim of this paper.
+0.44\,\tps{} GPU-split figure is excluded. Speculative-decode wall-clock
+and admission-engine experiments are not claims of this paper (see the
+scope box).
 
 \section{Related work}
 \label{sec:rw}

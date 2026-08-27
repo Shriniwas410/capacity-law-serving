@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Capacity-law serving — Qwen3-235B on 32 GB RAM</title>
-  <meta name="description" content="Interactive explainer: why stock speculative decoding does not speed up a 235B MoE streamed from NVMe into a 12-slot CPU expert cache.">
+  <meta name="description" content="Measurement explainer: routing traces, the expert-union law U(k), and greedy CPU stream decode of Qwen3-235B on 32 GB RAM. Speculation wall-clock is not this paper.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@16..72,500;16..72,650&display=swap" rel="stylesheet">
@@ -45,7 +45,15 @@
       margin: 0 0 0.4rem;
       max-width: 22ch;
     }
-    header .lede { margin: 0; color: var(--muted); max-width: 62ch; }
+    .hold {
+      border: 1px solid var(--wall);
+      background: var(--card);
+      padding: 0.75rem 0.9rem;
+      margin: 0.9rem 0 0;
+      font-size: 0.88rem;
+      max-width: 72ch;
+    }
+    .hold strong { font-weight: 600; }
     nav.links { margin-top: 0.75rem; font-size: 0.9rem; }
     nav.links a { color: var(--acc); }
     main { max-width: 960px; margin: 0 auto; padding: 1.25rem; }
@@ -154,13 +162,20 @@
 </head>
 <body>
   <header>
-    <p class="kicker">Paper 2 · measurement explainer · not a tok/s win</p>
-    <h1>Why speculation does not speed up a 235B MoE on 32&nbsp;GB RAM</h1>
+    <p class="kicker">Paper 2A · measurement explainer · not Paper B</p>
+    <h1>Does a 12-slot CPU stream fit a 235B MoE?</h1>
     <p class="lede">
       Qwen3-235B-A22B is 133&nbsp;GB in 4-bit GGUF. This page is the capacity law from the
-      traces: a draft is only cheap to verify if the <em>union</em> of experts fits in the
-      expert cache. Drag the slot budget. Numbers come from the public
+      traces: how many unique experts a k-token window demands, and whether that union
+      fits in 8–16 RAM slots. Drag the slot budget. Numbers come from the public
       <code>measurements/*.json</code> files, not from a demo.
+    </p>
+    <p class="hold">
+      <strong>Paper B (wait).</strong> Speculation/engine draft. Not for arXiv until a 30B
+      <code>-v</code> smoke restores α and 235B 12-slot decode beats F10b
+      <code>-ub 8</code> parity. It is <strong>not</strong> this repo’s
+      <a href="https://github.com/Shriniwas410/capacity-law-serving/blob/main/paper/paper.pdf">paper.pdf</a>.
+      Lab notes below the fold are not claims of the measurement preprint.
     </p>
     <nav class="links">
       <a href="https://github.com/Shriniwas410/capacity-law-serving">GitHub repo</a>
@@ -223,13 +238,13 @@
     </section>
 
     <section>
-      <h2>High α, wrong verify granularity</h2>
+      <h2>Lab notes (not this paper)</h2>
       <p>
-        A 0.6B same-family draft is accepted at α = 0.75–0.79 on a 16-token smoke.
-        That is not a wall-clock win. Stock llama.cpp verify with <code>-ub 1</code> slows
-        the 12-slot run. Serial expert waves make multi-token verify legal without 24 resident
-        slots (3 × top-8). Batched verify (<code>-ub 8</code>) returns to parity, not 1.5×.
-        Local <code>--moe-stream-umax</code> v1 collapsed α to 0.
+        Stock speculative-decode wall-clock on this box is held for Paper&nbsp;B.
+        A 0.6B same-family draft is accepted at α = 0.75–0.79 on a 16-token smoke;
+        that is not a claim of the measurement PDF. <code>-ub 1</code> slows the 12-slot
+        run; <code>-ub 8</code> returns to parity, not 1.5×; umax v1 collapsed α to 0.
+        Do not treat these as the repo paper.
       </p>
       <svg class="chart" id="spec-chart" viewBox="0 0 760 300" role="img" aria-label="Speculative decoding tok/s by protocol"></svg>
       <p class="caption">
@@ -258,15 +273,15 @@
     <section>
       <h2>What this changes, and what it does not</h2>
       <p>
-        The traces tell the next paper what to build: prefix FFN on rows 0–1 (serial waves if
-        U(2)&gt;12), mask the suffix by token row, and do not skip row-0 logits.
-        A global U≤12 gate repeats the umax v1 loss (p(T≥2)=0.12% at 12 slots).
-        Causal lag-2 prefetch recovered 0% of the LRU–OPT gap on these traces.
+        The traces say why lookahead is hard: mean U(4)=18.98, 8-slot admitted length
+        T=1.003, engine-min T=1.001 at 12 slots k=2. Causal lag-2 prefetch recovered
+        0% of the LRU–OPT gap. The publishable claims are those negatives plus the
+        mmap / O_DIRECT ladder—not a speculation speedup.
       </p>
       <p>
-        This is not interactive chat, not a GPU result, and not a claim that HorizonSpec already
-        works in the engine. It is a map of the wall so “just speculate” stops being the default
-        move for SSD MoE on a RAM slab that does not hold the table.
+        This is not interactive chat, not a GPU result, and not Paper&nbsp;B.
+        Paper&nbsp;B stays off arXiv until 30B <code>-v</code> restores α and 235B beats
+        F10b <code>-ub 8</code> parity.
       </p>
     </section>
   </main>
@@ -367,7 +382,7 @@
       } else if (slots === 12) {
         punch = "<strong>This is the trap.</strong> Per-layer-mean T=1.54 looks like room for a 2-token verify. "
           + "The engine takes min over 94 layers: T=1.001, p(T≥2)=0.12%, ~43 overflow layers per window. "
-          + "A global U≤12 gate repeats the umax v1 loss.";
+          + "A global U≤12 gate admits T≈1."
       } else if (slots === 16) {
         punch = "<strong>16 slots would admit k=2 everywhere</strong> (engine min T=2.00, 0 overflow) but adds ~4&nbsp;GiB on top of 16.7&nbsp;GiB RSS — too tight for 21&nbsp;Gi WSL. Naive k=4 still only fits "
           + pct(naive.k4) + " of windows.";

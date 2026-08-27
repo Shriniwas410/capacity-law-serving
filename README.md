@@ -2,9 +2,12 @@
 
 **Does a 12-slot CPU stream fit a 235B MoE, and how large is the expert union?**
 Measurement preprint: routing traces, the expert-union law \(U(k)\), and greedy
-decode on one Windows/WSL2 box (RTX 3070 left idle). Speculation wall-clock is
-**not** this paper's claim (see `RESULTS.md` for the lab pair; engine follow-on
-waits on umax v2).
+decode on one Windows/WSL2 box (RTX 3070 left idle).
+
+**Paper B (wait)** is the speculation/engine draft. It is **not for arXiv** until
+a 30B `-v` smoke restores α and 235B 12-slot decode beats F10b `-ub 8` parity.
+It is **not** this repo’s [`paper/paper.pdf`](paper/paper.pdf). Spec wall-clock
+in `RESULTS.md` is a lab notebook, not a claim of the PDF.
 
 This is **Paper 2A** (measurement), not [Cacheable by Design?](https://github.com/Shriniwas410/cacheable-by-design)
 (arXiv:2608.18261, 137M router training). Do not mix those tok/s tables.
@@ -28,8 +31,8 @@ flowchart TD
   table["133 GB Q4_K_M table on NVMe"] --> stream["12-slot CPU stream ~12 GB experts"]
   stream --> q{"U(k) ≤ slots?"}
   q -->|"U(4)=18.98 · 8-slot T=1.003"| no["extra I/O waves"]
-  q -->|"engine min T=1.001 at 12 slots"| spec["stock spec: high α, 0.80× then ~parity"]
-  no --> spec
+  q -->|"engine min T=1.001 at 12 slots"| extra["k>1 verify does not fit"]
+  no --> extra
 ```
 
 ## Repository layout
@@ -78,10 +81,12 @@ number has a file.
 | U(4)=18.98 | `measurements/uk_235b.json` |
 | HSpec per-layer-mean T=1.54 | `measurements/uk_umax_235b.json` |
 | Engine min T=1.001 | `measurements/_min_layer_T.json` |
-| spec `-ub 1` 0.80× | `measurements/spec235b_verdict.json` |
-| spec `-ub 8` ~parity | `measurements/spec235b_ub8/verdict.json` |
-| umax v1 lose α=0 | `measurements/spec235b_umax/verdict.json` |
 | lag-2 prefetch 0% | `measurements/g2a_235b.json` |
+
+Lab notes for Paper B (not `paper.pdf`): spec `-ub 1` 0.80×
+(`measurements/spec235b_verdict.json`), `-ub 8` ~parity
+(`measurements/spec235b_ub8/verdict.json`), umax v1 lose α=0
+(`measurements/spec235b_umax/verdict.json`).
 
 ## Citation
 
